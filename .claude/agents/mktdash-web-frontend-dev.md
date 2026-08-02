@@ -277,10 +277,21 @@ This is a shared desk — assume two teammates can act on the same conversation,
 11. Keep new code inside its owning feature. Promote to `entities/` or `shared/` only once 3+ features actually need it. No speculative abstraction.
 12. No comments unless documenting a non-obvious constraint (a workaround, a subtle invariant). Never restate what the code already says.
 13. Follow the naming conventions table above for every file you create.
-14. Before finishing: lint → typecheck (`tsc --noEmit`) → relevant unit tests (including `jest-axe` on new interactive components) → build → e2e (if the change touches a critical journey, including its `@axe-core/playwright` assertion). Then run the dev server and check the feature in a browser — golden path plus one edge case (empty, long content, error, permission-denied, and — where two people can plausibly act on the same object — a simulated concurrent edit).
-15. Keep Tailwind tokens centralized in `@theme` (`globals.css`) — colors, spacing, status palette, brand-kit overrides. Never invent one-off utility combinations per component.
-16. Never render inbound-message or template HTML with `dangerouslySetInnerHTML` unless it has passed through the sanitization pipeline (see Tech stack). This applies to the WhatsApp/email conversation view, template previews, and MJML output alike.
-17. Never nest an organisation-scoped concern (billing, SSO, role definitions, agency roll-up reporting) under `[workspaceSlug]`. If a task seems to require this, it belongs under `(org)/[orgSlug]` instead — flag it rather than taking the path of least resistance.
+14. Every `.tsx` component is declared as a PascalCase arrow-function const and default-exported on its own line at the end of the file — the `RootLayout` / `RootPage` pattern already in `src/app/`:
+
+    ```tsx
+    const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+      return <html lang="en">{children}</html>;
+    };
+
+    export default RootLayout;
+    ```
+
+    Never `export default function`, and never an anonymous or inline default export — a named const keeps the real component name in React DevTools, error boundaries, and stack traces. The const name matches the filename (`ComposerDock.tsx` → `ComposerDock`); route files are named for their role and segment (`InboxPage`, `EmailLayout`, `InboxLoading`, `InboxError`). Everything else the file exports — `metadata`, `generateMetadata`, prop types — is a named export declared above the component. A slice's `index.ts` re-exports these as named exports (`export { default as InboxPage } from "./ui/InboxPage";`) so the public API stays named while each file keeps one default export.
+15. Before finishing: lint → typecheck (`tsc --noEmit`) → relevant unit tests (including `jest-axe` on new interactive components) → build → e2e (if the change touches a critical journey, including its `@axe-core/playwright` assertion). Then run the dev server and check the feature in a browser — golden path plus one edge case (empty, long content, error, permission-denied, and — where two people can plausibly act on the same object — a simulated concurrent edit).
+16. Keep Tailwind tokens centralized in `@theme` (`globals.css`) — colors, spacing, status palette, brand-kit overrides. Never invent one-off utility combinations per component.
+17. Never render inbound-message or template HTML with `dangerouslySetInnerHTML` unless it has passed through the sanitization pipeline (see Tech stack). This applies to the WhatsApp/email conversation view, template previews, and MJML output alike.
+18. Never nest an organisation-scoped concern (billing, SSO, role definitions, agency roll-up reporting) under `[workspaceSlug]`. If a task seems to require this, it belongs under `(org)/[orgSlug]` instead — flag it rather than taking the path of least resistance.
 
 ## Delivery phases — build in this order
 
@@ -298,7 +309,7 @@ The product is proven incrementally; build features in the same order, not modul
 3. Read `shared/auth/ability.ts` if the task touches a permission-gated action.
 4. Check `shared/api/generated/` for an existing typed API method before adding a new one.
 5. Confirm which layer the new code belongs in before writing it — use the layer-purpose table in Project Structure. If it's a whole screen, it's a view slice, not a `page.tsx`.
-6. Confirm whether the task is organisation-scoped or workspace-scoped before choosing a route — see App routing and Engineering convention 17.
+6. Confirm whether the task is organisation-scoped or workspace-scoped before choosing a route — see App routing and Engineering convention 18.
 
 ## How to operate
 
