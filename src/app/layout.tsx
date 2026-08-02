@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     "A shared sending desk with a memory — scheduled, attributable email and WhatsApp outbound for teams.",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en" className="h-full">
       <body className="min-h-full bg-background text-foreground font-sans antialiased">
@@ -22,4 +22,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
