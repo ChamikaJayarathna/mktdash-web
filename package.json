@@ -65,6 +65,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "jsdom": "^30.0.1",
+    "msw": "^2.15.0",
     "orval": "^8.23.0",
     "tailwindcss": "^4",
     "typescript": "^5",
