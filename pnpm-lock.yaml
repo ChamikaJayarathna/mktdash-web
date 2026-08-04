@@ -104,6 +104,9 @@ importers:
       react-easy-crop:
         specifier: ^6.2.3
         version: 6.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-frame-component:
+        specifier: ^5.3.2
+        version: 5.3.2(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-hook-form:
         specifier: ^7.84.0
         version: 7.84.0(react@19.2.4)
@@ -3716,6 +3719,13 @@ packages:
     peerDependencies:
       react: '>=16.4.0'
       react-dom: '>=16.4.0'
+
+  react-frame-component@5.3.2:
+    resolution: {integrity: sha512-ce0/9xAnnkLDY6zxnTegP3Yjchw5z9aEaz0qKEGecrdnh3nAnQ5kehO84sNeLj3wQPB5ZM0OoVVQDQilhaE/5Q==}
+    peerDependencies:
+      prop-types: ^15.8.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react: '>= 16.8 || ^17.0.0 || ^18.0.0 || ^19.0.0'
+      react-dom: '>= 16.8 || ^17.0.0 || ^18.0.0 || ^19.0.0'
 
   react-hook-form@7.84.0:
     resolution: {integrity: sha512-+hWvQP6GLco56mDwrbU4XnHix8t1z90ltZsDIrREl+jnQFQxYLX8oAzqe/Xn8nHpmoXTY5M6oEXrAhbP1qevNQ==}
@@ -7923,6 +7933,12 @@ snapshots:
   react-easy-crop@6.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       normalize-wheel: 1.0.1
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  react-frame-component@5.3.2(prop-types@15.8.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      prop-types: 15.8.1
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
