@@ -60,6 +60,7 @@
     "@vitejs/plugin-react": "^6.0.5",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "jsdom": "^30.0.1",
     "orval": "^8.23.0",
     "tailwindcss": "^4",
     "typescript": "^5",
