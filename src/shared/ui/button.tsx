@@ -1,43 +1,46 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/shared/lib/utils"
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/shared/lib/utils";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center gap-1.75 border-[1.5px] border-transparent bg-clip-padding font-bold whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-(--dur-hover) ease-out outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/40 disabled:cursor-not-allowed disabled:opacity-45 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:[stroke-width:1.8] [&_svg:not([class*='size-'])]:size-3.75",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default:
+          "bg-accent-500 text-white shadow-accent hover:bg-accent-600 hover:shadow-[0_4px_14px_rgb(11_123_208_/_0.42)] active:not-aria-[haspopup]:translate-y-px",
+        dark: "bg-ink-800 text-white hover:bg-ink-700 active:not-aria-[haspopup]:translate-y-px",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-border-5 bg-surface-0 text-text-5 hover:border-accent-200 hover:text-text-3 aria-expanded:border-accent-200 aria-expanded:bg-surface-2",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-surface-6 text-text-5 hover:bg-surface-5 hover:text-text-3 aria-expanded:bg-surface-5",
+        tinted:
+          "border-accent-150 bg-accent-025 text-accent-700 hover:border-accent-200 hover:bg-accent-050",
+        dashed:
+          "border-dashed border-accent-200 bg-[#f7fbfe] text-accent-500 hover:border-accent-500 hover:bg-accent-025",
         ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+          "text-text-5 hover:bg-surface-5 hover:text-text-3 aria-expanded:bg-surface-5",
         destructive:
-          "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-primary underline-offset-4 hover:underline",
+          "border-danger-100 bg-surface-0 text-danger-600 hover:bg-danger-050 focus-visible:border-danger-600 focus-visible:ring-destructive/20",
+        link: "text-accent-500 underline-offset-4 hover:text-accent-700 hover:underline",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
-        "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+        default: "h-control rounded-xl px-3.25 text-sm",
+        xs: "h-6 rounded-md px-2 text-2xs",
+        sm: "h-control-sm rounded-lg px-2.5 text-xs",
+        lg: "h-9 rounded-2xl px-5 text-base",
+        icon: "size-control rounded-xl",
+        "icon-xs": "size-6 rounded-md",
+        "icon-sm": "size-control-sm rounded-lg",
+        "icon-lg": "size-9 rounded-2xl",
       },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 function Button({
   className,
@@ -51,7 +54,7 @@ function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

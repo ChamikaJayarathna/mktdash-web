@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist } from "next/font/google";
+import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -20,8 +32,11 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="en" className={cn("h-full", "font-sans", geist.variable)}>
-      <body className="min-h-full bg-background text-foreground font-sans antialiased">
+    <html
+      lang="en-GB"
+      className={cn("h-full", plusJakartaSans.variable, ibmPlexMono.variable)}
+    >
+      <body className="min-h-full bg-background font-sans text-base text-foreground antialiased">
         {children}
       </body>
     </html>
