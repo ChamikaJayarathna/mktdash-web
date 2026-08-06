@@ -8,8 +8,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-accent-500 text-white shadow-accent hover:bg-accent-600 hover:shadow-[0_4px_14px_rgb(11_123_208_/_0.42)] active:not-aria-[haspopup]:translate-y-px",
-        dark: "bg-ink-800 text-white hover:bg-ink-700 active:not-aria-[haspopup]:translate-y-px",
+          "bg-primary text-primary-foreground shadow-accent hover:bg-accent-600 hover:shadow-accent-hover active:not-aria-[haspopup]:translate-y-px",
+        solid:
+          "bg-solid text-on-solid hover:bg-solid-hover active:not-aria-[haspopup]:translate-y-px",
         outline:
           "border-border-5 bg-surface-0 text-text-5 hover:border-accent-200 hover:text-text-3 aria-expanded:border-accent-200 aria-expanded:bg-surface-2",
         secondary:
@@ -17,7 +18,7 @@ const buttonVariants = cva(
         tinted:
           "border-accent-150 bg-accent-025 text-accent-700 hover:border-accent-200 hover:bg-accent-050",
         dashed:
-          "border-dashed border-accent-200 bg-[#f7fbfe] text-accent-500 hover:border-accent-500 hover:bg-accent-025",
+          "border-dashed border-accent-200 bg-accent-025 text-accent-500 hover:border-accent-500 hover:bg-accent-050",
         ghost:
           "text-text-5 hover:bg-surface-5 hover:text-text-3 aria-expanded:bg-surface-5",
         destructive:
