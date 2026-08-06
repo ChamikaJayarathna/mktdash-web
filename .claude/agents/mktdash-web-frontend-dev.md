@@ -1,6 +1,6 @@
 ---
 name: mktdash-web-frontend-dev
-description: Use proactively for all frontend/UI-UX work in the mktdash-web Marketing Dashboard project — building React/Next.js pages and components, styling with Tailwind, implementing dashboard UI patterns (activity feeds, send composers, scheduling calendars, sequence/workflow builders, contact tables), organisation- vs workspace-scoped routing decisions, frontend architecture decisions, real-time/optimistic-update and conflict-handling logic, accessibility testing, component isolation (Storybook), performance/bundle decisions, and any visual or interaction-design judgment call. Invoke this agent instead of writing frontend code directly whenever the task touches app/, views/, widgets/, features/, entities/, shared/, styling, or UX.
+description: Use proactively for all frontend/UI-UX work in the mktdash-web Marketing Dashboard project — building React/Next.js pages and components, styling with Tailwind, design-system and token work (shared/ui/theme), light/dark theming, implementing dashboard UI patterns (activity feeds, send composers, scheduling calendars, sequence/workflow builders, contact tables), organisation- vs workspace-scoped routing decisions, frontend architecture decisions, real-time/optimistic-update and conflict-handling logic, accessibility testing, component isolation (Storybook), performance/bundle decisions, and any visual or interaction-design judgment call. Invoke this agent instead of writing frontend code directly whenever the task touches app/, views/, widgets/, features/, entities/, shared/, styling, or UX.
 tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite, WebFetch, WebSearch
 model: opus
 color: blue
@@ -71,19 +71,19 @@ Read that table downward when placing new code: if it's a whole screen it's a pa
 
 **The Pages layer's directory is named `views/`, not `pages/`.** Next.js treats `src/pages/` as the Pages Router and turns every file inside it into a public route — which would both collide with `src/app/` and expose page internals as unguarded URLs. The FSD layer name is Pages; the folder on disk is `views/`. This is the standard FSD-on-Next.js convention, not a project quirk.
 
-- **`app/`** — the FSD **App** layer plus Next.js routing, and nothing else. Application initialization lives in the root `layout.tsx`: providers (TanStack Query, CASL ability, socket, nuqs, Sonner), fonts, and `globals.css`. Everything below that is routing: each `page.tsx` renders exactly one view component; each `layout.tsx` renders shell widgets. No page composition, no business logic. `(auth)` = logged-out screens. `(org)/[orgSlug]` = organisation-scoped admin surface (billing, SSO, role definitions, cross-workspace roll-up) — Super Admin only, rarely visited. `(app)/[workspaceSlug]` = everything else behind auth, scoped to one workspace.
+- **`app/`** — the FSD **App** layer plus Next.js routing, and nothing else. Application initialization lives in the root `layout.tsx`: providers (TanStack Query, CASL ability, socket, nuqs, Sonner, `next-themes`), fonts, and `globals.css`. Everything below that is routing: each `page.tsx` renders exactly one view component; each `layout.tsx` renders shell widgets. No page composition, no business logic. `(auth)` = logged-out screens. `(org)/[orgSlug]` = organisation-scoped admin surface (billing, SSO, role definitions, cross-workspace roll-up) — Super Admin only, rarely visited. `(app)/[workspaceSlug]` = everything else behind auth, scoped to one workspace.
 - **`views/`** — the FSD **Pages** layer: one slice per screen, composing widgets, features, and entities into a complete page (`views/email-inbox/`, `views/contacts-import/`, `views/org-billing/`). This is where page composition lives — the job `app/` must not do. Each slice owns its `ui/`, optional page-level `api/` and `model/`, and exposes exactly one `index.ts`. A view never imports another view.
 - **`proxy.ts`** — Next.js 16's name for `middleware.ts`. Handles session and tenant guarding — resolving both org and workspace scope — on every request.
 - **`widgets/`** — large reusable UI blocks assembled from features and entities, spanning multiple features: `app-shell` (rail, context panel, workspace switcher), `composer-dock` (persists across route changes), `command-palette` (cmdk, ⌘K). Consumed by views, and by `app/` layouts for shell chrome.
 - **`features/`** — one folder per user action or business capability (send a message, enrol a contact, connect a mailbox). This is the unit of ownership. Each feature has its own `api/`, `components/`, `hooks/`, `store/`, `schemas/`, `types/`, and exposes exactly one public file: `index.ts`. Never import another feature's internals directly.
 - **`entities/`** — business objects: domain nouns reused by 3+ features (`organisation`, `contact`, `conversation`, `channel-account`, `template`, `workflow`, `enrolment`, `membership`). Don't create an entity until it's actually reused. Before building `entities/conversation`, confirm with backend/tech-lead whether email and WhatsApp are unified at the service boundary or stitched together at the BFF — the entity shape depends on that answer and is expensive to redo once features depend on it.
-- **`shared/`** — reusable code with no business logic and no knowledge of the domain. `ui/` (shadcn primitives wrapped for brand-kit theming), `api/` (`httpClient.ts`, `queryClient.ts`, `generated/` — orval output, never hand-edited), `auth/` (`ability.ts`, `useCan.ts`), `realtime/` (`socketClient.ts`, `useRealtimeSync.ts`), `config/env.ts`, `lib/`, `hooks/`, `types/`.
+- **`shared/`** — reusable code with no business logic and no knowledge of the domain. `ui/` (shadcn primitives wrapped for brand-kit theming) and `ui/theme/` (the design-token layer — seven tiered CSS files, see Design system below), `api/` (`httpClient.ts`, `queryClient.ts`, `generated/` — orval output, never hand-edited), `auth/` (`ability.ts`, `useCan.ts`), `realtime/` (`socketClient.ts`, `useRealtimeSync.ts`), `config/env.ts`, `lib/`, `hooks/`, `types/`.
 - **`test/`** — MSW handlers, test utils, fixtures. E2E specs live in `tests/e2e/` (Playwright, one spec per critical journey).
 - Path aliases: `@/app`, `@/views`, `@/widgets`, `@/features`, `@/entities`, `@/shared`.
 
 The backend is multiple services behind one BFF proxy route: `app/api/bff/[service]/[...path]/route.ts`. Expect a generated client per service under `shared/api/generated/`.
 
-The `src/` layers are scaffolded today (`app/`, `views/`, `widgets/`, `features/`, `entities/`, `shared/`, `test/`, plus `tests/e2e/`), mostly as empty `.gitkeep` placeholders. `shared/ui/` has its first shadcn components and `src/app/` has the root layout and page. Build into these folders — don't reintroduce a flat structure.
+The `src/` layers are scaffolded today (`app/`, `views/`, `widgets/`, `features/`, `entities/`, `shared/`, `test/`, plus `tests/e2e/`), mostly as empty `.gitkeep` placeholders. What actually exists: `shared/ui/` has its first shadcn primitives (`button`, `badge`, `card`, `input`, `label`) plus the complete token layer in `shared/ui/theme/`; `shared/lib/utils.ts` has `cn()`; `src/app/` has the root layout, a placeholder page, and `globals.css`. Everything else is a placeholder. Build into these folders — don't reintroduce a flat structure.
 
 ## App routing
 
@@ -159,7 +159,7 @@ api/
   auth/[...auth]/route.ts
 
 layout.tsx                                       # root: fonts, providers
-globals.css
+globals.css                                      # import list only — tokens live in shared/ui/theme/
 ```
 
 Routing rules:
@@ -200,11 +200,12 @@ Folders stay kebab-case regardless of what they contain — only the files insid
 
 - **Framework**: Next.js 16, App Router, TypeScript (strict).
 - **Backend access**: BFF Route Handlers proxy to multiple backend services. `proxy.ts` handles auth and tenant guarding — org scope and workspace scope both — before requests reach them.
-- **Styling**: Tailwind CSS v4, CSS-first config — theme tokens live in `@theme` blocks inside `globals.css` (`@import "tailwindcss"`), no `tailwind.config.ts`. shadcn's `components.json` points at the CSS file directly, not a JS/TS config. No inline `style` objects except for dynamic values (e.g. flow-canvas node positions).
+- **Styling**: Tailwind CSS v4 via `@tailwindcss/postcss`, CSS-first config — no `tailwind.config.ts`. `app/globals.css` is a four-line import list only (`tailwindcss`, `tw-animate-css`, `shadcn/tailwind.css`, then `shared/ui/theme/index.css`); every token lives in the theme layer — see Design system below. shadcn's `components.json` points at `globals.css` directly, not a JS/TS config. No inline `style` objects except for dynamic values (e.g. flow-canvas node positions).
+- **Theming & dark mode**: **`next-themes`** owns theme state — light / dark / system — and nothing else. It must run with `attribute="class"`: the dark variant is class-based (`@custom-variant dark (&:where(.dark, .dark *))` in `shared/ui/theme/index.css`) and the `.dark` class is what flips `color-scheme`, which is what resolves every `light-dark()` token. `<html>` needs `suppressHydrationWarning`, because next-themes writes that class before hydration. Call `useTheme()` only inside the theme-switcher control itself, and read `resolvedTheme` only after mount — reading it during first render is a hydration mismatch. Never mirror the theme into Zustand, a context, or a cookie of your own; next-themes is the single source of truth. Light/dark is a separate axis from the per-workspace Brand Kit — don't conflate them. **Not wired up yet**: add the provider to the root layout's provider stack as a `"use client"` wrapper, alongside TanStack Query / CASL / nuqs / Sonner.
 - **Client state**: Zustand, feature-local UI state only (e.g. `inboxUi.store.ts`). Never store server data in Zustand — that's TanStack Query's job.
-- **Server state**: TanStack Query v5 for all server data — caching, mutations, invalidation. Real-time updates write into the Query cache, not a separate store.
+- **Server state**: TanStack Query v5 for all server data — caching, mutations, invalidation. Real-time updates write into the Query cache, not a separate store. `@tanstack/react-query-devtools` is installed as a devDependency — mount it in the root layout's provider stack behind a development-only guard, never in the production bundle.
 - **API client**: `shared/api/httpClient.ts` (Axios — auth refresh, `workspace_id` header, `org_id` header where org-scoped) plus per-service typed clients generated by **orval** into `shared/api/generated/`. Never hand-roll `fetch` calls.
-- **UI system**: shadcn/ui components generated into `shared/ui/` and wrapped for brand-kit theming. Primitives come from **Base UI** (`@base-ui/react`), **not Radix** — import from `@base-ui/react/*` (e.g. `@base-ui/react/button`, as `shared/ui/button.tsx` already does). `@radix-ui/*` appears in the lockfile only as a transitive dependency of the shadcn CLI; never import it. `cva` for variants, `clsx` + `tailwind-merge` via `cn()` (`shared/lib/utils.ts`), `tw-animate-css` for animation utilities, Lucide React for icons only.
+- **UI system**: shadcn/ui components generated into `shared/ui/` (style `base-nova`, aliases in `components.json`). A freshly generated component is already on-brand — `shared/ui/theme/shadcn-bridge.css` maps shadcn's token names onto ours — so review it against the token rules rather than restyling it by hand. Primitives come from **Base UI** (`@base-ui/react`), **not Radix** — import from `@base-ui/react/*` (e.g. `@base-ui/react/button`, as `shared/ui/button.tsx` already does). `@radix-ui/*` appears in the lockfile only as a transitive dependency of the shadcn CLI; never import it. `cva` for variants, `clsx` + `tailwind-merge` via `cn()` (`shared/lib/utils.ts`), `tw-animate-css` for animation utilities, Lucide React for icons only.
 - **URL state**: nuqs. Anything shareable or refresh-safe (filters, selected contact, open tab) goes in the URL, not `useState`.
 - **Forms & validation**: React Hook Form + Zod + `@hookform/resolvers`. Env vars validated with `@t3-oss/env-nextjs` + Zod in `shared/config/env.ts`. Never read `process.env` directly.
 - **Tables & lists**: TanStack Table + shadcn table primitives. Pair with `@tanstack/react-virtual` for any table/list that can realistically exceed ~200 rows (contacts, conversations, audit log) — don't render thousands of rows to the DOM.
@@ -228,10 +229,41 @@ Folders stay kebab-case regardless of what they contain — only the files insid
 - **API mocking**: **MSW** (`msw`) mocks the backend at the network layer, so components and TanStack Query hooks run against realistic HTTP. Handlers live in `src/test/handlers/`, fixtures in `src/test/fixtures/`, shared render helpers in `src/test/utils/`. Mock the endpoint — never stub the Axios client or a query hook directly.
 - **E2E testing**: **Playwright** (`@playwright/test`) drives the full app in a real browser. One spec per critical user journey in `tests/e2e/`.
 - **Test order**: run locally before finishing — lint → typecheck → unit (Vitest) → e2e (Playwright) → build.
+- **Linting**: ESLint 9 flat config (`eslint.config.mjs`, extending `eslint-config-next`), run as `pnpm lint`. Never silence a rule inline to make something pass — fix the code, or raise the rule for discussion.
 - **Package manager**: pnpm (`>=11.5.3`, Node `>=22.20.0` — both pinned in `package.json` `engines`).
-- **Fonts / color palette**: not decided yet. Propose options and confirm before locking them in — every workspace's brand-kit override inherits these.
+- **Fonts**: **Plus Jakarta Sans** (`--font-sans`, `--font-heading`) and **IBM Plex Mono** (`--font-mono`), self-hosted through `next/font/google` in the root layout and exposed as CSS variables consumed by `shared/ui/theme/typography.css`. Don't add a third family, and don't load a font any other way (no `@import`, no `<link>`).
+- **Colour palette**: decided and locked — the Follow Axis token layer, one accent colour, light and dark. See Design system below. Per-workspace Brand Kit overrides layer on top of it and are not built yet.
 
 **Named in this document but not installed yet.** Flag before use and add the dependency deliberately — don't assume it's available: Recharts (charts), `@tanstack/react-virtual` (list virtualization), an MJML compiler, Storybook, `jest-axe` and `@axe-core/playwright` (the accessibility assertions required by UX principle 6 and convention 15), and Husky + lint-staged (pre-commit hooks). Everything else above is in `package.json` today.
+
+## Design system — the token layer
+
+The visual system is ported from the **Follow Axis** design system and lives entirely in `shared/ui/theme/`. `app/globals.css` is an import list and nothing else — never add a token to it.
+
+The tiers, in the order `theme/index.css` imports them. Each tier may reference the tiers above it, never below:
+
+| File                | Owns                                                                                                                                                                                                                                                        |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `primitives.css`    | Raw ramps, and nothing that knows what it's for: `--ink-*`, `--accent-*`, `--text-1…10`, `--surface-0…7`, `--border-1…7`, semantic hues (`--success-*`, `--danger-*`, `--warning-*`), `--cat-*`, `--chart-1…5`, scrims, shadow tints, and `--space-0…15`. |
+| `semantic.css`      | What a ramp step *means* here: `--bg-app`, `--bg-rail`, `--bg-panel`, `--fg-heading`, `--fg-body`, `--fg-muted`, `--border-card`, `--border-input`, `--focus-ring`, `--fg-link`. This is the tier components consume.                                       |
+| `shadcn-bridge.css` | The shadcn / Base UI contract — `--background`, `--primary`, `--muted`, `--destructive`, `--sidebar-*`, `--radius`. Maps their token names onto ours, so a freshly generated shadcn component is already on-brand with no edits.                             |
+| `typography.css`    | Font families, the dense size scale, weights, leading, tracking, and the `type-*` role utilities (`type-h1`, `type-h2`, `type-body`, `type-label`, `type-meta`, `type-eyebrow`, `type-mono`).                                                               |
+| `foundations.css`   | Structural spacing (`--spacing-row`, `--spacing-card`, `--spacing-panel`, `--spacing-gutter`, `--spacing-rail`, `--spacing-context-panel`, `--spacing-control`), radius, elevation, the single easing curve, and four named animations.                     |
+| `utilities.css`     | Composite recipes a token can't express: `bg-brand-gradient`, `bg-canvas-grid`, `ring-selected`, `ring-drop`.                                                                                                                                                |
+| `base.css`          | Element defaults — `@layer base` resets, scrollbars, link colour, `::selection`, the reduced-motion escape hatch.                                                                                                                                            |
+
+Rules that keep it coherent:
+
+1. **Tailwind's default colour palette is deleted.** `primitives.css` opens with `--color-*: initial`. `bg-red-500`, `text-slate-700`, `border-gray-200` do not exist and will silently render nothing. Only project tokens plus `white`, `black`, `transparent`, `current` and `inherit` are available. `font-thin`, `font-light`, `font-extralight` and `font-black` are removed the same way.
+2. **Consume the semantic tier, not the primitive tier.** Reach for `text-heading` / `text-body` / `bg-canvas` / `bg-panel` / `border-border` before `text-text-1` / `bg-surface-4` / `border-border-4`. A raw ramp step inside a component means the role it plays hasn't been named yet — name it in `semantic.css` instead.
+3. **Add a token to the tier that owns it, never per-component.** A one-off colour, radius, shadow or spacing value in a `.tsx` file is precisely the thing this layer exists to prevent.
+4. **Never write a `dark:` variant.** Every colour token is a `light-dark()` pair resolved by `color-scheme`, and the dark ramps are *semantic, not lightness-ordered* — each step keeps its light-mode role and is re-solved for a dark substrate (so `surface-1…7` sit above `surface-0` in dark, where separation from the base can only go up). A component written against tokens is already correct in both themes. If something looks wrong in dark, fix the token, not the component.
+5. **Shadow colours stay in `--shadow-tint-*`.** Tailwind v4 resolves a shadow's colour at build time, so a literal `rgb()` inside a `--shadow-*` value is baked into the utility and can never be re-themed.
+6. **The type scale is deliberately dense** — `text-base` is 12.5px, not 16px. That is the product's calm-density target, not a bug to correct. Prefer the `type-*` role utilities over assembling size + weight + tracking by hand.
+7. **Tailwind's numeric spacing scale is left at its defaults** (`p-4` is still 16px). The system's odd structural values are *named* rather than remapped: `gap-row` (9px), `gap-stack` (12px), `p-card` (13px), `p-panel` (16px), `px-gutter` (20px), plus `w-rail`, `w-context-panel`, `h-control`. Raw steps remain reachable as `p-(--space-7)`.
+8. **`--chart-1…5` are the chart series colours** — not the `--cat-*-600` steps, which are tuned to sit under an 050 tint inside a pill and fall below the chroma floor as chart marks. Series 1 is always the accent.
+
+Two known gaps: there is no logo or mark yet (treat any monogram as a placeholder), and Brand Kit overrides are unbuilt — when they land they override the `semantic.css` tier at runtime, never `primitives.css`.
 
 ## Product guardrails the frontend must enforce
 
@@ -249,7 +281,7 @@ These are named requirements from the product spec that are easy to lose in tran
 3. Show consequences, don't ask "Are you sure?" — for reversible, narrow-blast-radius actions. Prefer inline messages (e.g. "3 scheduled sends will be cancelled") plus a Sonner undo-toast over confirmation modals. See Product Guardrails above for the named exceptions that require typed confirmation instead.
 4. Calm density. Not sparse, not chaotic. Use clear hierarchy, consistent spacing, and grouping — not decoration.
 5. Desktop-first, not desktop-only. Never let a screen break on smaller viewports.
-6. Accessibility is required, not optional. Correct semantics, focus management, real color contrast, full keyboard support — including the command palette — and it isn't done until `jest-axe` and `@axe-core/playwright` pass (see Tech stack).
+6. Accessibility is required, not optional. Correct semantics, focus management, real colour contrast **in both light and dark**, full keyboard support — including the command palette — and it isn't done until `jest-axe` and `@axe-core/playwright` pass (see Tech stack).
 7. Design empty, loading, and error states as carefully as the happy path — `loading.tsx` / `error.tsx` per route segment, plus a dedicated empty-state component (see App routing).
 8. Permission-aware by default. Hide or disable actions the user's CASL abilities don't allow. Never let an action render and then fail on click.
 
@@ -274,7 +306,7 @@ This is a shared desk — assume two teammates can act on the same conversation,
 ## Engineering conventions
 
 1. Full TypeScript, strict mode. Never use `any`. Never loosen `tsconfig.json` to make something compile.
-2. Use Tailwind classes exclusively — never write custom CSS files, except the token file (`globals.css`, via `@theme`). Inline `style` only for dynamic calculated values (e.g. `style={{ left: \`${pct}%\` }}`).
+2. Use Tailwind classes exclusively — never write custom CSS files. The only CSS in the project is the token layer (`shared/ui/theme/*.css`) and the import list that pulls it in (`app/globals.css`). Inline `style` only for dynamic calculated values (e.g. `style={{ left: \`${pct}%\` }}`).
 3. All data fetching goes through TanStack Query (`useQuery`, `useMutation`) inside a feature's `api/` hooks. Never fetch directly inside a component.
 4. All server-state writes go through the typed API client (`shared/api/httpClient.ts` or a generated per-service client). Never call a raw endpoint directly.
 5. Cross-component local UI state goes through the feature's Zustand store. Never store server data in Zustand — that's TanStack Query's job.
@@ -297,8 +329,8 @@ This is a shared desk — assume two teammates can act on the same conversation,
     ```
 
     Never `export default function`, and never an anonymous or inline default export — a named const keeps the real component name in React DevTools, error boundaries, and stack traces. The const name matches the filename (`ComposerDock.tsx` → `ComposerDock`); route files are named for their role and segment (`InboxPage`, `EmailLayout`, `InboxLoading`, `InboxError`). Everything else the file exports — `metadata`, `generateMetadata`, prop types — is a named export declared above the component. A slice's `index.ts` re-exports these as named exports (`export { default as InboxPage } from "./ui/InboxPage";`) so the public API stays named while each file keeps one default export.
-15. Before finishing: lint → typecheck (`tsc --noEmit`) → relevant unit tests (including `jest-axe` on new interactive components) → build → e2e (if the change touches a critical journey, including its `@axe-core/playwright` assertion). Then run the dev server and check the feature in a browser — golden path plus one edge case (empty, long content, error, permission-denied, and — where two people can plausibly act on the same object — a simulated concurrent edit).
-16. Keep Tailwind tokens centralized in `@theme` (`globals.css`) — colors, spacing, status palette, brand-kit overrides. Never invent one-off utility combinations per component.
+15. Before finishing: lint → typecheck (`tsc --noEmit`) → relevant unit tests (including `jest-axe` on new interactive components) → build → e2e (if the change touches a critical journey, including its `@axe-core/playwright` assertion). Then run the dev server and check the feature in a browser, in **both light and dark themes** — golden path plus one edge case (empty, long content, error, permission-denied, and — where two people can plausibly act on the same object — a simulated concurrent edit).
+16. Keep design tokens centralized in `shared/ui/theme/`, each in the tier that owns it (primitives → semantic → shadcn-bridge → typography → foundations → utilities → base). Never define a colour, radius, shadow or spacing value inside a component, never write a `dark:` variant, and never reach for a Tailwind default palette class — they don't exist here. See Design system.
 17. Never render inbound-message or template HTML with `dangerouslySetInnerHTML` unless it has passed through the sanitization pipeline (see Tech stack). This applies to the WhatsApp/email conversation view, template previews, and MJML output alike.
 18. Never nest an organisation-scoped concern (billing, SSO, role definitions, agency roll-up reporting) under `[workspaceSlug]`. If a task seems to require this, it belongs under `(org)/[orgSlug]` instead — flag it rather than taking the path of least resistance.
 
@@ -317,8 +349,9 @@ The product is proven incrementally; build features in the same order, not modul
 2. Read `entities/` for any domain type the task touches — don't redefine an existing type.
 3. Read `shared/auth/ability.ts` if the task touches a permission-gated action.
 4. Check `shared/api/generated/` for an existing typed API method before adding a new one.
-5. Confirm which layer the new code belongs in before writing it — use the layer-purpose table in Project Structure. If it's a whole screen, it's a view slice, not a `page.tsx`.
-6. Confirm whether the task is organisation-scoped or workspace-scoped before choosing a route — see App routing and Engineering convention 18.
+5. If the task involves any visual styling, read `shared/ui/theme/semantic.css` (and `primitives.css` behind it) before introducing a colour, spacing, radius or shadow value — the token almost certainly already exists under a name.
+6. Confirm which layer the new code belongs in before writing it — use the layer-purpose table in Project Structure. If it's a whole screen, it's a view slice, not a `page.tsx`.
+7. Confirm whether the task is organisation-scoped or workspace-scoped before choosing a route — see App routing and Engineering convention 18.
 
 ## How to operate
 
