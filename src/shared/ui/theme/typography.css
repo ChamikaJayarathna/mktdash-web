@@ -1,0 +1,92 @@
+@theme {
+  --font-sans:
+    var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, Menlo, monospace;
+  --font-heading:
+    var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+
+  /* Weights */
+  --font-weight-thin: initial;
+  --font-weight-extralight: initial;
+  --font-weight-light: initial;
+  --font-weight-black: initial;
+
+  /* Font Size */
+  --text-3xs: 8.5px;
+  --text-3xs--line-height: var(--leading-snug);
+  --text-2xs: 9.5px;
+  --text-2xs--line-height: var(--leading-flat);
+  --text-xs: 10.5px;
+  --text-xs--line-height: var(--leading-snug);
+  --text-sm: 11.5px;
+  --text-sm--line-height: var(--leading-snug);
+  --text-base: 12.5px;
+  --text-base--line-height: var(--leading-relaxed);
+  --text-md: 13.5px;
+  --text-md--line-height: var(--leading-snug);
+  --text-lg: 15px;
+  --text-lg--line-height: var(--leading-snug);
+  --text-lg--letter-spacing: var(--tracking-snug);
+  --text-xl: 17px;
+  --text-xl--line-height: var(--leading-tight);
+  --text-xl--letter-spacing: var(--tracking-snug);
+  --text-2xl: 19px;
+  --text-2xl--line-height: var(--leading-tight);
+  --text-2xl--letter-spacing: var(--tracking-tight);
+  --text-3xl: 21px;
+  --text-3xl--line-height: var(--leading-tight);
+  --text-3xl--letter-spacing: var(--tracking-tight);
+  --text-4xl: 40px; /* document titles only — not app chrome */
+  --text-4xl--line-height: var(--leading-tight);
+  --text-4xl--letter-spacing: var(--tracking-tight);
+
+  --leading-flat: 1;
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.62;
+  --leading-loose: 1.7; /* email body */
+
+  --tracking-tight: -0.03em; /* 19px+ headings */
+  --tracking-snug: -0.02em; /* 15–17px headings */
+  --tracking-none: 0em;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.11em; /* mono eyebrows */
+  --tracking-widest: 0.14em;
+}
+
+@utility type-display {
+  @apply font-heading text-4xl font-extrabold;
+}
+
+@utility type-h1 {
+  @apply font-heading text-2xl font-extrabold;
+}
+
+@utility type-h2 {
+  @apply font-heading text-md font-extrabold tracking-snug;
+}
+
+@utility type-h3 {
+  @apply font-heading text-base leading-snug font-bold;
+}
+
+@utility type-body {
+  @apply font-sans text-base font-normal;
+}
+
+@utility type-label {
+  @apply font-sans text-sm font-bold;
+}
+
+@utility type-meta {
+  @apply font-sans text-xs font-medium;
+}
+
+@utility type-eyebrow {
+  @apply font-mono text-2xs font-semibold tracking-wider uppercase;
+}
+
+@utility type-mono {
+  @apply font-mono text-sm font-medium;
+}
