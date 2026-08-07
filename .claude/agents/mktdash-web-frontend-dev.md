@@ -245,15 +245,15 @@ Folders stay kebab-case regardless of what they contain — only the files insid
 - **Linting**: ESLint 9 flat config (`eslint.config.mjs`, extending `eslint-config-next`), run as `pnpm lint`. Never silence a rule inline to make something pass — fix the code, or raise the rule for discussion.
 - **Package manager**: pnpm (`>=11.5.3`, Node `>=22.20.0` — both pinned in `package.json` `engines`).
 - **Fonts**: **Plus Jakarta Sans** (`--font-sans`, `--font-heading`) and **IBM Plex Mono** (`--font-mono`), self-hosted through `next/font/google` in the root layout and exposed as CSS variables consumed by `shared/ui/theme/typography.css`. Don't add a third family, and don't load a font any other way (no `@import`, no `<link>`).
-- **Colour palette**: decided and locked — the Follow Axis token layer, one accent colour, light and dark. See Design system below. Per-workspace Brand Kit overrides layer on top of it and are not built yet.
+- **Colour palette**: decided and locked — the Marketing Dashboard token layer, one accent colour, light and dark. See Design system below. Per-workspace Brand Kit overrides layer on top of it and are not built yet.
 
 **Named in this document but not installed yet.** Flag before use and add the dependency deliberately — don't assume it's available: `@tanstack/react-virtual` (list virtualization), an MJML compiler, Storybook, `jest-axe` and `@axe-core/playwright` (the accessibility assertions required by UX principle 6 and convention 15), Husky + lint-staged (pre-commit hooks), and an authentication library (see above). Everything else named above is in `package.json` today.
 
-**Removed on purpose — do not reinstall without asking.** `shadcn` (use `pnpm dlx` instead), `gsap` (animation is CSS-only), `next-auth` (auth library undecided). Each was added and then removed in a deliberate commit; treat a request that seems to need one as a question, not a green light.
+**Removed on purpose — do not reinstall without asking.** `shadcn` (use `pnpm dlx` instead), `gsap` (animation is CSS-only and tw-animate-css), `next-auth` (auth library undecided). Each was added and then removed in a deliberate commit; treat a request that seems to need one as a question, not a green light.
 
 ## Design system — the token layer
 
-The visual system is ported from the **Follow Axis** design system and lives entirely in `shared/ui/theme/`. `app/globals.css` is an import list and nothing else — never add a token to it.
+The visual system is ported from the **Marketing Dashboard** design system and lives entirely in `shared/ui/theme/`. `app/globals.css` is an import list and nothing else — never add a token to it.
 
 The tiers, in the order `theme/index.css` imports them. Each tier may reference the tiers above it, never below:
 
