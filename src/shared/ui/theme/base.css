@@ -1,0 +1,59 @@
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-10) transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground text-base;
+  }
+
+  a {
+    color: var(--fg-link);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--fg-link-hover);
+  }
+
+  ::selection {
+    background: var(--accent-100);
+    color: var(--text-1);
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--text-10);
+    border-radius: var(--radius-2xl);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-9);
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

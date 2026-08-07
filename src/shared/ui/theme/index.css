@@ -1,0 +1,9 @@
+@import "./primitives.css"; /* raw ramps */
+@import "./semantic.css"; /* what they mean here */
+@import "./shadcn-bridge.css"; /* shadcn / Base UI contract */
+@import "./typography.css"; /* scale + decoupled roles */
+@import "./foundations.css"; /* spacing, radius, elevation, motion */
+@import "./utilities.css"; /* composite recipes */
+@import "./base.css"; /* element defaults */
+
+@custom-variant dark (&:where(.dark, .dark *));

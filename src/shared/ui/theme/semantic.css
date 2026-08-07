@@ -1,0 +1,46 @@
+:root {
+  /* Surfaces */
+  --bg-app: var(--surface-4);
+  --bg-card: var(--surface-0);
+  --bg-rail: var(--ink-900);
+  --bg-panel: var(--accent-025);
+  --bg-row-hover: var(--surface-2);
+
+  /* Foreground roles */
+  --fg-heading: var(--text-1);
+  --fg-body: var(--text-3);
+  --fg-muted: var(--text-7);
+  --fg-eyebrow: var(--text-8);
+  --fg-on-dark: #e4edf5;
+
+  /* Lines and rings */
+  --border-card: var(--border-4);
+  --border-input: var(--border-5);
+  --focus-ring: var(--accent-500);
+
+  /* The neutral solid button */
+  --bg-solid: light-dark(var(--ink-800), #445a74);
+  --bg-solid-hover: light-dark(var(--ink-700), #4f6987);
+  --fg-on-solid: light-dark(#ffffff, var(--text-1));
+
+  /* Links */
+  --fg-link: var(--accent-500);
+  --fg-link-hover: light-dark(var(--accent-700), var(--accent-600));
+}
+
+@theme inline {
+  --color-canvas: var(--bg-app);
+  --color-rail: var(--bg-rail);
+  --color-panel: var(--bg-panel);
+  --color-row-hover: var(--bg-row-hover);
+  --color-solid: var(--bg-solid);
+  --color-solid-hover: var(--bg-solid-hover);
+  --color-on-solid: var(--fg-on-solid);
+  --color-heading: var(--fg-heading);
+  --color-body: var(--fg-body);
+  --color-meta: var(--fg-muted);
+  --color-eyebrow: var(--fg-eyebrow);
+  --color-on-dark: var(--fg-on-dark);
+  --color-link: var(--fg-link);
+  --color-link-hover: var(--fg-link-hover);
+}

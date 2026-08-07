@@ -1,0 +1,94 @@
+:root {
+  /* Motion durations */
+  --dur-hover: 0.13s;
+  --dur-enter: 0.18s;
+  --dur-panel: 0.22s;
+}
+
+@theme {
+  /* Structural spacing  */
+  --spacing-row: var(--space-6); /* 9px  — default gap inside a row */
+  --spacing-stack: var(--space-8); /* 12px — vertical rhythm */
+  --spacing-card: var(--space-9); /* 13px — default card padding-x */
+  --spacing-panel: var(--space-11); /* 16px — default panel padding */
+  --spacing-gutter: var(--space-13); /* 20px — screen gutter */
+
+  --spacing-rail: 60px;
+  --spacing-context-panel: 236px;
+  --spacing-inspector: 296px;
+  --spacing-list-pane: 400px;
+  --spacing-control: 34px;
+  --spacing-control-sm: 28px;
+  --spacing-nav-row: 29px;
+
+  /* Radius scales with the element */
+  --radius-xs: 4px; /* merge-tag chip */
+  --radius-sm: 5px;
+  --radius-md: 6px; /* icon button */
+  --radius-lg: 7px; /* small control, badge */
+  --radius-xl: 8px; /* input, secondary button */
+  --radius-2xl: 9px; /* primary button, card inner */
+  --radius-3xl: 11px; /* provider tile, workflow node */
+  --radius-4xl: 12px;
+  --radius-5xl: 14px; /* modal, composer shell */
+  --radius-pill: 99px; /* anything conveying status or filter state */
+
+  /* Elevation */
+  --shadow-hairline: 0 1px 3px var(--shadow-tint-hairline);
+  --shadow-card: 0 1px 3px var(--shadow-tint-card);
+  --shadow-raised: 0 2px 8px var(--shadow-tint-raised);
+  --shadow-accent: 0 2px 10px var(--shadow-tint-accent);
+  --shadow-accent-hover: 0 4px 14px var(--shadow-tint-accent-hover);
+  --shadow-selected: 0 6px 20px var(--shadow-tint-selected);
+  --shadow-popover: 0 14px 36px var(--shadow-tint-popover);
+  --shadow-modal: 0 20px 50px var(--shadow-tint-modal);
+  --shadow-overlay: 0 22px 60px var(--shadow-tint-overlay);
+
+  /* One easing curve. */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Four animations. */
+  --animate-fa-in: fa-in var(--dur-enter) var(--ease-out);
+  --animate-fa-pop: fa-pop var(--dur-enter) var(--ease-out);
+  --animate-fa-fade: fa-fade var(--dur-enter) var(--ease-out);
+  --animate-fa-toast: fa-toast var(--dur-panel) var(--ease-out);
+
+  @keyframes fa-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fa-pop {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fa-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fa-toast {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 12px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+}

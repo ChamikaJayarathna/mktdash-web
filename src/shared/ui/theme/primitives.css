@@ -1,0 +1,225 @@
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-white: #fff;
+  --color-black: #000;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Ink */
+  --ink-900: light-dark(#0e1b2b, #070e15); /* app rail, darkest surface */
+  --ink-800: light-dark(#11243a, #0d1621); /* headings, dark button fill */
+  --ink-700: light-dark(#1b2e45, #14202e); /* dark button hover */
+  --ink-600: light-dark(#1e4e7e, #214263); /* gradient partner for accent */
+  --ink-500: light-dark(#2c4a69, #39506a); /* avatar fill on dark */
+
+  /* Accent */
+  --accent-700: light-dark(#075a9e, #a7d1f1); /* text on accent tint */
+  --accent-600: light-dark(#0a6bb6, #6db3e9); /* primary hover */
+  --accent-500: light-dark(#0b7bd0, #499edf); /* PRIMARY */
+  --accent-400: light-dark(#3b7cae, #94b7d1); /* body on accent surfaces */
+  --accent-300: light-dark(#5b87ac, #7498b4);
+  --accent-200: light-dark(#9fc6e8, #3f7aa6); /* hover border */
+  --accent-150: light-dark(#c9dff3, #306288); /* border on accent surface */
+  --accent-100: light-dark(#dceaf6, #214763); /* pressed tint */
+  --accent-050: light-dark(#eaf2fb, #1a3951); /* chip / badge tint */
+  --accent-025: light-dark(#f1f7fc, #182d3f); /* panel surface */
+
+  /* Text ramp, loudest to quietest */
+  --text-1: light-dark(#11243a, #eef2f6); /* primary */
+  --text-2: light-dark(#2b3f55, #dfe6ec); /* long-form body */
+  --text-3: light-dark(#3b4e62, #d0d9e1); /* email body, secondary */
+  --text-4: light-dark(#4a5f76, #bcc7d2); /* tertiary */
+  --text-5: light-dark(#5a6b7c, #abb8c4); /* labels, quiet buttons */
+  --text-6: light-dark(#6b7f94, #9dabb8); /* screen subtitles */
+  --text-7: light-dark(#8497a9, #909ead); /* meta */
+  --text-8: light-dark(#9aabbb, #8896a5); /* mono eyebrows, timestamps */
+  --text-9: light-dark(#b6c3ce, #808f9d); /* placeholder — still 4.5:1 */
+  --text-10: light-dark(#c6d0da, #647382); /* chevrons, dismiss */
+
+  /* Surfaces */
+  --surface-0: light-dark(#ffffff, #192838); /* cards, panels, rows */
+  --surface-1: light-dark(#fbfcfd, #1e2d3e); /* inset strips, node footers */
+  --surface-2: light-dark(#f8fafc, #243344); /* row hover */
+  --surface-3: light-dark(#f7f9fb, #1f2e3f); /* table / composer header */
+  --surface-4: light-dark(#f4f6f8, #0f1b29); /* app canvas behind cards */
+  --surface-5: light-dark(#f2f5f8, #273749); /* icon-button hover */
+  --surface-6: light-dark(#eff3f7, #2c3c4e); /* neutral chip */
+  --surface-7: light-dark(#f1f5f9, #202f40); /* toolbar pill track */
+
+  /* Borders, lightest to heaviest. */
+  --border-1: light-dark(#f2f5f8, #2a3747); /* row divider */
+  --border-2: light-dark(#edf1f5, #2e3c4d); /* section divider */
+  --border-3: light-dark(#e9eef3, #334254);
+  --border-4: light-dark(#e4eaef, #3b4b5e); /* DEFAULT card border */
+  --border-5: light-dark(#e0e7ed, #5c728c); /* input border */
+  --border-6: light-dark(#d8e0e8, #667e99); /* raised surface border */
+  --border-7: light-dark(#cfd8e1, #798da4); /* connector line */
+
+  /* Semantic hues */
+  --success-600: light-dark(#1e7a5a, #6bc7a7);
+  --success-100: light-dark(#cfe5da, #376c59);
+  --success-050: light-dark(#e8f4ee, #204135);
+  --success-025: light-dark(#e4f1ea, #1a322a);
+
+  --danger-600: light-dark(#b4443c, #ec8179);
+  --danger-100: light-dark(#edcfcc, #813c37);
+  --danger-050: light-dark(#fbedeb, #4b2320);
+
+  --warning-700: light-dark(#8a5f1a, #f5d5a8);
+  --warning-600: light-dark(#d98324, #e2a050);
+  --warning-500: light-dark(#b08a44, #c5a877);
+  --warning-100: light-dark(#f3efe6, #6b5433);
+  --warning-050: light-dark(#fbf2e2, #47361f);
+  --warning-025: light-dark(#fdfaf3, #372b1b);
+
+  /* Categorical */
+  --cat-violet-600: light-dark(#5c4a80, #b39fdb);
+  --cat-violet-050: light-dark(#f2eef7, #352a4b);
+  --cat-teal-600: light-dark(#1b6e6e, #70c2c2);
+  --cat-teal-050: light-dark(#e2f1f1, #223f3f);
+  --cat-orange-600: light-dark(#a85e22, #dc9e6a);
+  --cat-orange-050: light-dark(#fdf0e4, #483423);
+
+  /* Chart */
+  --chart-1: light-dark(#0b7bd0, #499edf); /* accent — always series 1 */
+  --chart-2: light-dark(#c25e10, #f4b371); /* orange */
+  --chart-3: light-dark(#008f7a, #278676); /* teal */
+  --chart-4: light-dark(#7048b0, #b994eb); /* violet */
+  --chart-5: light-dark(#b03a6a, #d95e8f); /* rose */
+
+  /* On-dark surfaces (the rail) */
+  --on-dark-fill: rgb(255 255 255 / 0.08);
+  --on-dark-fill-active: rgb(255 255 255 / 0.12);
+  --on-dark-hairline: rgb(255 255 255 / 0.13);
+
+  /* Scrims */
+  --scrim: light-dark(rgb(14 27 43 / 0.42), rgb(4 10 17 / 0.68));
+  --scrim-light: light-dark(rgb(14 27 43 / 0.28), rgb(4 10 17 / 0.48));
+
+  /* Shadow tints */
+  --shadow-tint-hairline: light-dark(rgb(14 27 43 / 0.06), rgb(3 8 14 / 0.5));
+  --shadow-tint-card: light-dark(rgb(14 27 43 / 0.07), rgb(3 8 14 / 0.55));
+  --shadow-tint-raised: light-dark(rgb(14 27 43 / 0.1), rgb(3 8 14 / 0.62));
+  --shadow-tint-accent: light-dark(
+    rgb(11 123 208 / 0.32),
+    rgb(73 158 223 / 0.28)
+  );
+  --shadow-tint-accent-hover: light-dark(
+    rgb(11 123 208 / 0.42),
+    rgb(73 158 223 / 0.38)
+  );
+  --shadow-tint-selected: light-dark(
+    rgb(11 123 208 / 0.2),
+    rgb(73 158 223 / 0.22)
+  );
+  --shadow-tint-popover: light-dark(rgb(14 27 43 / 0.22), rgb(3 8 14 / 0.7));
+  --shadow-tint-modal: light-dark(rgb(14 27 43 / 0.3), rgb(3 8 14 / 0.76));
+  --shadow-tint-overlay: light-dark(rgb(14 27 43 / 0.32), rgb(3 8 14 / 0.8));
+
+  /* The density ramp */
+  --space-0: 0px;
+  --space-1: 2px;
+  --space-2: 3px;
+  --space-3: 5px;
+  --space-4: 6px;
+  --space-5: 7px;
+  --space-6: 9px; /* → --spacing-row */
+  --space-7: 11px;
+  --space-8: 12px; /* → --spacing-stack */
+  --space-9: 13px; /* → --spacing-card */
+  --space-10: 14px;
+  --space-11: 16px; /* → --spacing-panel */
+  --space-12: 18px;
+  --space-13: 20px; /* → --spacing-gutter */
+  --space-14: 22px;
+  --space-15: 26px;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-ink-500: var(--ink-500);
+
+  --color-accent-700: var(--accent-700);
+  --color-accent-600: var(--accent-600);
+  --color-accent-500: var(--accent-500);
+  --color-accent-400: var(--accent-400);
+  --color-accent-300: var(--accent-300);
+  --color-accent-200: var(--accent-200);
+  --color-accent-150: var(--accent-150);
+  --color-accent-100: var(--accent-100);
+  --color-accent-050: var(--accent-050);
+  --color-accent-025: var(--accent-025);
+
+  --color-text-1: var(--text-1);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-text-4: var(--text-4);
+  --color-text-5: var(--text-5);
+  --color-text-6: var(--text-6);
+  --color-text-7: var(--text-7);
+  --color-text-8: var(--text-8);
+  --color-text-9: var(--text-9);
+  --color-text-10: var(--text-10);
+
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-surface-5: var(--surface-5);
+  --color-surface-6: var(--surface-6);
+  --color-surface-7: var(--surface-7);
+
+  --color-border-1: var(--border-1);
+  --color-border-2: var(--border-2);
+  --color-border-3: var(--border-3);
+  --color-border-4: var(--border-4);
+  --color-border-5: var(--border-5);
+  --color-border-6: var(--border-6);
+  --color-border-7: var(--border-7);
+
+  --color-success-600: var(--success-600);
+  --color-success-100: var(--success-100);
+  --color-success-050: var(--success-050);
+  --color-success-025: var(--success-025);
+  --color-danger-600: var(--danger-600);
+  --color-danger-100: var(--danger-100);
+  --color-danger-050: var(--danger-050);
+  --color-warning-700: var(--warning-700);
+  --color-warning-600: var(--warning-600);
+  --color-warning-500: var(--warning-500);
+  --color-warning-100: var(--warning-100);
+  --color-warning-050: var(--warning-050);
+  --color-warning-025: var(--warning-025);
+
+  --color-cat-violet-600: var(--cat-violet-600);
+  --color-cat-violet-050: var(--cat-violet-050);
+  --color-cat-teal-600: var(--cat-teal-600);
+  --color-cat-teal-050: var(--cat-teal-050);
+  --color-cat-orange-600: var(--cat-orange-600);
+  --color-cat-orange-050: var(--cat-orange-050);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-on-dark-fill: var(--on-dark-fill);
+  --color-on-dark-fill-active: var(--on-dark-fill-active);
+  --color-on-dark-hairline: var(--on-dark-hairline);
+  --color-scrim: var(--scrim);
+  --color-scrim-light: var(--scrim-light);
+}
