@@ -92,10 +92,23 @@
   --chart-4: light-dark(#7048b0, #b994eb); /* violet */
   --chart-5: light-dark(#b03a6a, #d95e8f); /* rose */
 
-  /* On-dark surfaces (the rail) */
+  /* On-dark surfaces (the rail, the auth brand panel) — ink in both themes,
+     so these are fixed values rather than light-dark() pairs. */
   --on-dark-fill: rgb(255 255 255 / 0.08);
   --on-dark-fill-active: rgb(255 255 255 / 0.12);
   --on-dark-hairline: rgb(255 255 255 / 0.13);
+  --on-dark-text-1: #e4edf5; /* primary */
+  --on-dark-text-2: #93aabf; /* body */
+  --on-dark-text-3: #63798f; /* meta, quiet links */
+  --on-dark-accent: #7fc0f0;
+  --on-dark-accent-quiet: #4a90c4; /* mono eyebrow */
+  --on-dark-violet: #bba9d6;
+  --on-dark-success: #7fd3ac;
+  --on-dark-tint-accent: rgb(11 123 208 / 0.22);
+  --on-dark-tint-violet: rgb(92 74 128 / 0.34);
+  --on-dark-tint-success: rgb(76 175 130 / 0.26);
+  --on-dark-fill-success: rgb(30 122 90 / 0.16);
+  --on-dark-hairline-success: rgb(76 175 130 / 0.3);
 
   /* Scrims */
   --scrim: light-dark(rgb(14 27 43 / 0.42), rgb(4 10 17 / 0.68));
@@ -220,6 +233,14 @@
   --color-on-dark-fill: var(--on-dark-fill);
   --color-on-dark-fill-active: var(--on-dark-fill-active);
   --color-on-dark-hairline: var(--on-dark-hairline);
+  --color-on-dark-accent: var(--on-dark-accent);
+  --color-on-dark-violet: var(--on-dark-violet);
+  --color-on-dark-success: var(--on-dark-success);
+  --color-on-dark-tint-accent: var(--on-dark-tint-accent);
+  --color-on-dark-tint-violet: var(--on-dark-tint-violet);
+  --color-on-dark-tint-success: var(--on-dark-tint-success);
+  --color-on-dark-fill-success: var(--on-dark-fill-success);
+  --color-on-dark-hairline-success: var(--on-dark-hairline-success);
   --color-scrim: var(--scrim);
   --color-scrim-light: var(--scrim-light);
 }

@@ -1,3 +1,4 @@
+@import "./shadcn-variants.css"; /* vendored shadcn CLI contract */
 @import "./primitives.css"; /* raw ramps */
 @import "./semantic.css"; /* what they mean here */
 @import "./shadcn-bridge.css"; /* shadcn / Base UI contract */

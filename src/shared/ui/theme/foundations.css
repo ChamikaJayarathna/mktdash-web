@@ -12,6 +12,9 @@
   --spacing-card: var(--space-9); /* 13px — default card padding-x */
   --spacing-panel: var(--space-11); /* 16px — default panel padding */
   --spacing-gutter: var(--space-13); /* 20px — screen gutter */
+  --spacing-auth-panel-min: 380px; /* brand panel floor before it stacks */
+  --spacing-auth-panel-max: 620px;
+  --spacing-auth-column: 404px; /* auth form measure */
 
   --spacing-rail: 60px;
   --spacing-context-panel: 236px;

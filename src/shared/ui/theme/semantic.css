@@ -11,7 +11,10 @@
   --fg-body: var(--text-3);
   --fg-muted: var(--text-7);
   --fg-eyebrow: var(--text-8);
-  --fg-on-dark: #e4edf5;
+  --fg-on-dark: var(--on-dark-text-1);
+  --fg-on-dark-body: var(--on-dark-text-2);
+  --fg-on-dark-muted: var(--on-dark-text-3);
+  --fg-on-dark-eyebrow: var(--on-dark-accent-quiet);
 
   /* Lines and rings */
   --border-card: var(--border-4);
@@ -41,6 +44,9 @@
   --color-meta: var(--fg-muted);
   --color-eyebrow: var(--fg-eyebrow);
   --color-on-dark: var(--fg-on-dark);
+  --color-on-dark-body: var(--fg-on-dark-body);
+  --color-on-dark-muted: var(--fg-on-dark-muted);
+  --color-on-dark-eyebrow: var(--fg-on-dark-eyebrow);
   --color-link: var(--fg-link);
   --color-link-hover: var(--fg-link-hover);
 }
