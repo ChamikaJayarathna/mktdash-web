@@ -15,8 +15,8 @@ const LEGAL_LINKS = [
 
 const AuthBrandPanel = ({ eyebrow, title, body }: AuthBrandPanelProps) => {
   return (
-    <aside className="relative flex flex-none flex-col overflow-hidden bg-rail px-11 py-6 lg:basis-[44%] lg:px-11 lg:py-9.5 lg:min-w-auth-panel-min lg:max-w-auth-panel-max">
-      <div className="flex flex-none items-center gap-2.75">
+    <aside className="relative flex flex-none flex-col overflow-hidden bg-rail px-11 py-6 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:grid lg:grid-rows-subgrid lg:py-0">
+      <div className="flex flex-none items-center gap-2.75 lg:row-start-1 lg:self-start lg:pt-9.5">
         <span
           aria-hidden
           className="flex size-control items-center justify-center rounded-3xl bg-brand-gradient text-sm font-extrabold text-white"
@@ -28,7 +28,7 @@ const AuthBrandPanel = ({ eyebrow, title, body }: AuthBrandPanelProps) => {
         </span>
       </div>
 
-      <div className="hidden min-h-0 flex-1 flex-col justify-center py-6 lg:flex">
+      <div className="hidden flex-col lg:row-start-2 lg:flex lg:self-start lg:py-6">
         <p className="type-eyebrow tracking-widest text-on-dark-eyebrow">
           {eyebrow}
         </p>
@@ -41,7 +41,7 @@ const AuthBrandPanel = ({ eyebrow, title, body }: AuthBrandPanelProps) => {
         </div>
       </div>
 
-      <div className="mt-6 hidden flex-none flex-wrap items-center gap-4 text-sm font-medium text-on-dark-muted lg:mt-0 lg:flex">
+      <div className="mt-6 hidden flex-none flex-wrap items-center gap-4 text-sm font-medium text-on-dark-muted lg:row-start-3 lg:mt-0 lg:flex lg:self-end lg:pb-9.5">
         <span>&copy; {new Date().getFullYear()} Follow Axis</span>
         {LEGAL_LINKS?.map((link) => (
           <Link
