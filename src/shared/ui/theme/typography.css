@@ -36,6 +36,12 @@
   --text-3xl: 21px;
   --text-3xl--line-height: var(--leading-tight);
   --text-3xl--letter-spacing: var(--tracking-tight);
+  --text-title: 27px; /* full-screen title — auth, empty-state hero */
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.028em;
+  --text-hero: 32px; /* brand statement on a split-panel screen */
+  --text-hero--line-height: 1.14;
+  --text-hero--letter-spacing: -0.03em;
   --text-4xl: 40px; /* document titles only — not app chrome */
   --text-4xl--line-height: var(--leading-tight);
   --text-4xl--letter-spacing: var(--tracking-tight);
@@ -57,6 +63,14 @@
 
 @utility type-display {
   @apply font-heading text-4xl font-extrabold;
+}
+
+@utility type-hero {
+  @apply font-heading text-hero font-extrabold;
+}
+
+@utility type-title {
+  @apply font-heading text-title font-extrabold;
 }
 
 @utility type-h1 {
