@@ -10,6 +10,7 @@ import {
 import type { AppModule, AppModuleId } from "./appModule.types";
 
 export const WORKSPACE_PATH_PREFIX = "w";
+export const ORGANISATION_PATH_PREFIX = "org";
 
 export const APP_MODULES: readonly AppModule[] = [
   { id: "home", label: "Home", icon: House, landingSegments: [] },
@@ -57,6 +58,9 @@ export const getAppModule = (moduleId: AppModuleId): AppModule => {
 
 export const buildWorkspaceHref = (workspaceSlug: string): string =>
   `/${WORKSPACE_PATH_PREFIX}/${workspaceSlug}`;
+
+export const buildOrganisationHref = (organisationSlug: string): string =>
+  `/${ORGANISATION_PATH_PREFIX}/${organisationSlug}`;
 
 export const buildAppModuleHref = (
   workspaceSlug: string,

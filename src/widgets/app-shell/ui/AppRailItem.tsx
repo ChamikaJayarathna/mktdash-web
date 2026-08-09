@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { RAIL_NAV_ANCHOR_OFFSET } from "../lib/railAnchor";
 
 export interface AppRailItemProps {
   readonly href: string;
@@ -57,7 +58,7 @@ const AppRailItem = ({
           </Link>
         }
       />
-      <TooltipContent side="right" sideOffset={10}>
+      <TooltipContent side="right" sideOffset={RAIL_NAV_ANCHOR_OFFSET}>
         {label}
       </TooltipContent>
     </Tooltip>

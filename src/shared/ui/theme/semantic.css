@@ -11,6 +11,7 @@
   --fg-body: var(--text-3);
   --fg-muted: var(--text-7);
   --fg-eyebrow: var(--text-8);
+  --fg-faint: var(--text-10); /* chevrons, dismiss glyphs */
   --fg-on-dark: var(--on-dark-text-1);
   --fg-on-dark-body: var(--on-dark-text-2);
   --fg-on-dark-muted: var(--on-dark-text-3);
@@ -43,6 +44,7 @@
   --color-body: var(--fg-body);
   --color-meta: var(--fg-muted);
   --color-eyebrow: var(--fg-eyebrow);
+  --color-faint: var(--fg-faint);
   --color-on-dark: var(--fg-on-dark);
   --color-on-dark-body: var(--fg-on-dark-body);
   --color-on-dark-muted: var(--fg-on-dark-muted);
