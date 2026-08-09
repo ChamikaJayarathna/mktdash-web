@@ -1,4 +1,4 @@
-const RootPage = () => {
+const WebHomeRoute = () => {
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-2 p-8">
       <h1 className="text-sm font-medium tracking-tight">
@@ -9,4 +9,4 @@ const RootPage = () => {
   );
 };
 
-export default RootPage;
+export default WebHomeRoute;
