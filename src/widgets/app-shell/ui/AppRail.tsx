@@ -1,7 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { ThemeToggleMenu } from "@/features/theme-switcher";
 import { TooltipProvider } from "@/shared/ui/tooltip";
+import { RAIL_UTILITY_ANCHOR_OFFSET } from "../lib/railAnchor";
 import { workspaceMonogram } from "../lib/workspaceMonogram";
 import { buildHelpHref } from "../model/accountMenu";
 import type { AppModuleCounts, AppRailAccount } from "../model/appModule.types";
@@ -71,6 +73,7 @@ const AppRail = ({
         </nav>
 
         <div className="flex flex-none flex-col items-center gap-row pt-2">
+          <ThemeToggleMenu sideOffset={RAIL_UTILITY_ANCHOR_OFFSET} />
           <AppRailHelpLink href={buildHelpHref(workspaceSlug)} />
           {account ? (
             <AppRailProfileMenu
