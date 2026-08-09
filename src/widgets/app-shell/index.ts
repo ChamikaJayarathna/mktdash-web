@@ -26,3 +26,19 @@ export type {
   AppRailAccount,
 } from "./model/appModule.types";
 export { workspaceMonogram } from "./lib/workspaceMonogram";
+
+export { default as EmailSidebar } from "./ui/email-sidebar/EmailSidebar";
+export type { EmailSidebarProps } from "./ui/email-sidebar/EmailSidebar";
+export {
+  EMAIL_DESTINATIONS,
+  EMAIL_MODULE_SEGMENT,
+  buildEmailDestinationHref,
+  buildEmailModuleHref,
+  getEmailDestination,
+  resolveActiveEmailDestinationId,
+} from "./model/emailDestinations";
+export type {
+  EmailDestination,
+  EmailDestinationCounts,
+  EmailDestinationId,
+} from "./model/emailSidebar.types";

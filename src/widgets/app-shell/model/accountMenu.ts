@@ -12,11 +12,11 @@ export const ACCOUNT_MENU_ITEMS: readonly AccountMenuItem[] = [
     segments: ["account", "profile"],
   },
   {
-    id: "connections",
+    id: "accounts",
     label: "Connected accounts",
     note: "Mailboxes and WhatsApp numbers you can send from",
     scope: "workspace",
-    segments: ["email", "connections"],
+    segments: ["email", "accounts"],
   },
   {
     id: "preferences",

@@ -4,7 +4,9 @@
   --bg-card: var(--surface-0);
   --bg-rail: var(--ink-900);
   --bg-panel: var(--accent-025);
+  --bg-context-panel: var(--surface-3); /* module context panel beside the rail */
   --bg-row-hover: var(--surface-2);
+  --bg-row-selected: var(--accent-075);
 
   /* Foreground roles */
   --fg-heading: var(--text-1);
@@ -36,7 +38,9 @@
   --color-canvas: var(--bg-app);
   --color-rail: var(--bg-rail);
   --color-panel: var(--bg-panel);
+  --color-context-panel: var(--bg-context-panel);
   --color-row-hover: var(--bg-row-hover);
+  --color-row-selected: var(--bg-row-selected);
   --color-solid: var(--bg-solid);
   --color-solid-hover: var(--bg-solid-hover);
   --color-on-solid: var(--fg-on-solid);
