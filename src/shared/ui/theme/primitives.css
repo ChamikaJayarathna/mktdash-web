@@ -97,6 +97,7 @@
   --on-dark-fill: rgb(255 255 255 / 0.08);
   --on-dark-fill-active: rgb(255 255 255 / 0.12);
   --on-dark-hairline: rgb(255 255 255 / 0.13);
+  --on-dark-hairline-strong: rgb(255 255 255 / 0.2); /* on-dark control ring */
   --on-dark-text-1: #e4edf5; /* primary */
   --on-dark-text-2: #93aabf; /* body */
   --on-dark-text-3: #63798f; /* meta, quiet links */
@@ -233,6 +234,7 @@
   --color-on-dark-fill: var(--on-dark-fill);
   --color-on-dark-fill-active: var(--on-dark-fill-active);
   --color-on-dark-hairline: var(--on-dark-hairline);
+  --color-on-dark-hairline-strong: var(--on-dark-hairline-strong);
   --color-on-dark-accent: var(--on-dark-accent);
   --color-on-dark-violet: var(--on-dark-violet);
   --color-on-dark-success: var(--on-dark-success);
