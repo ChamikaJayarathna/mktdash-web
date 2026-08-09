@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { ModulePlaceholderPage } from "@/views/module-placeholder";
 
 export const metadata: Metadata = {
-  title: "Connections",
+  title: "Accounts",
 };
 
-const EmailConnectionsRoute = () => {
+const EmailAccountsRoute = () => {
   return (
     <ModulePlaceholderPage
       module="Email"
-      screen="Connections"
+      screen="Accounts"
       description="Connected mailboxes and WhatsApp numbers, their sync health, and which of them your membership is granted to send from."
     />
   );
 };
 
-export default EmailConnectionsRoute;
+export default EmailAccountsRoute;

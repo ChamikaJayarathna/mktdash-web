@@ -5,7 +5,7 @@ export type EmailDestinationId =
   | "follow-ups"
   | "templates"
   | "signatures"
-  | "connections";
+  | "accounts";
 
 export interface EmailDestination {
   readonly id: EmailDestinationId;

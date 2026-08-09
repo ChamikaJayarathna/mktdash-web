@@ -29,9 +29,9 @@ export const EMAIL_DESTINATIONS: readonly EmailDestination[] = [
     countNoun: "available",
   },
   {
-    id: "connections",
-    label: "Connections",
-    segments: ["connections"],
+    id: "accounts",
+    label: "Accounts",
+    segments: ["accounts"],
     countNoun: "connected",
   },
 ];
