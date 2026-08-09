@@ -78,6 +78,7 @@ const ThemeToggleMenu = ({
             <DropdownMenuRadioItem
               key={option.value}
               value={option.value}
+              closeOnClick
               className="gap-2.5 rounded-lg py-2 pr-8 pl-2.5 focus:bg-row-hover data-checked:text-accent-500"
             >
               <option.icon
