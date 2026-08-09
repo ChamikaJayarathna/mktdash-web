@@ -41,5 +41,4 @@ export type {
   EmailDestination,
   EmailDestinationCounts,
   EmailDestinationId,
-  EmailDestinationTone,
 } from "./model/emailSidebar.types";

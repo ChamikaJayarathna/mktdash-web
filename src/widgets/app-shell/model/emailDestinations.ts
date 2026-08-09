@@ -7,53 +7,31 @@ import type {
 export const EMAIL_MODULE_SEGMENT = "email";
 
 export const EMAIL_DESTINATIONS: readonly EmailDestination[] = [
-  {
-    id: "inbox",
-    label: "Inbox",
-    segments: ["inbox"],
-    tone: "default",
-    countNoun: "unread",
-  },
-  {
-    id: "drafts",
-    label: "Drafts",
-    segments: ["drafts"],
-    tone: "default",
-    countNoun: "saved",
-  },
-  {
-    id: "sent",
-    label: "Sent",
-    segments: ["sent"],
-    tone: "default",
-    countNoun: "sent",
-  },
+  { id: "inbox", label: "Inbox", segments: ["inbox"], countNoun: "unread" },
+  { id: "drafts", label: "Drafts", segments: ["drafts"], countNoun: "saved" },
+  { id: "sent", label: "Sent", segments: ["sent"], countNoun: "sent" },
   {
     id: "follow-ups",
     label: "Follow-ups",
     segments: ["follow-ups", "queue"],
-    tone: "accent",
     countNoun: "queued",
   },
   {
     id: "templates",
     label: "Templates",
     segments: ["templates"],
-    tone: "default",
     countNoun: "available",
   },
   {
     id: "signatures",
     label: "Signatures",
     segments: ["signatures"],
-    tone: "default",
     countNoun: "available",
   },
   {
     id: "connections",
     label: "Connections",
     segments: ["connections"],
-    tone: "default",
     countNoun: "connected",
   },
 ];

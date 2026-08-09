@@ -32,7 +32,6 @@ const EmailDestinationList = ({
         const count = counts[destination.id];
         const hasCount = typeof count === "number" && count > 0;
         const isActive = destination.id === activeDestinationId;
-        const isAccent = destination.tone === "accent";
 
         return (
           <li key={destination.id}>
@@ -47,10 +46,9 @@ const EmailDestinationList = ({
               className={cn(
                 "flex h-7.75 items-center gap-2 rounded-lg px-2.5 text-base transition-colors duration-(--dur-hover) ease-out outline-none",
                 "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-context-panel",
-                isActive && "bg-row-selected font-bold text-heading",
-                !isActive && "font-medium hover:bg-surface-6",
-                !isActive && isAccent && "text-accent-500",
-                !isActive && !isAccent && "text-text-5",
+                isActive
+                  ? "bg-row-selected font-bold text-heading"
+                  : "font-medium text-text-5 hover:bg-surface-6",
               )}
             >
               <span className="min-w-0 flex-1 truncate">
@@ -61,9 +59,7 @@ const EmailDestinationList = ({
                   aria-hidden
                   className={cn(
                     "flex-none font-mono text-2xs font-semibold",
-                    isActive && "text-heading",
-                    !isActive && isAccent && "text-accent-500",
-                    !isActive && !isAccent && "text-eyebrow",
+                    isActive ? "text-heading" : "text-eyebrow",
                   )}
                 >
                   {formatSidebarCount(count)}

@@ -7,13 +7,10 @@ export type EmailDestinationId =
   | "signatures"
   | "connections";
 
-export type EmailDestinationTone = "default" | "accent";
-
 export interface EmailDestination {
   readonly id: EmailDestinationId;
   readonly label: string;
   readonly segments: readonly string[];
-  readonly tone: EmailDestinationTone;
   readonly countNoun: string;
 }
 
