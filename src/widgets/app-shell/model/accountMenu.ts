@@ -26,13 +26,6 @@ export const ACCOUNT_MENU_ITEMS: readonly AccountMenuItem[] = [
     segments: ["account", "preferences"],
   },
   {
-    id: "appearance",
-    label: "Appearance",
-    note: "Theme, density, thread grouping",
-    scope: "workspace",
-    segments: ["account", "appearance"],
-  },
-  {
     id: "notifications",
     label: "Notifications",
     note: "Email, desktop, digest schedule",

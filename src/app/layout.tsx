@@ -34,6 +34,7 @@ const RootLayout = ({
   return (
     <html
       lang="en-GB"
+      suppressHydrationWarning
       className={cn("h-full", plusJakartaSans.variable, ibmPlexMono.variable)}
     >
       <body className="min-h-full bg-background font-sans text-base text-foreground antialiased">
