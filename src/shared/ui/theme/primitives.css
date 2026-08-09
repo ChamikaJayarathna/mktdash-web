@@ -26,6 +26,7 @@
   --accent-200: light-dark(#9fc6e8, #3f7aa6); /* hover border */
   --accent-150: light-dark(#c9dff3, #306288); /* border on accent surface */
   --accent-100: light-dark(#dceaf6, #214763); /* pressed tint */
+  --accent-075: light-dark(#e4edf5, #21405a); /* selected nav / list row */
   --accent-050: light-dark(#eaf2fb, #1a3951); /* chip / badge tint */
   --accent-025: light-dark(#f1f7fc, #182d3f); /* panel surface */
 
@@ -173,6 +174,7 @@
   --color-accent-200: var(--accent-200);
   --color-accent-150: var(--accent-150);
   --color-accent-100: var(--accent-100);
+  --color-accent-075: var(--accent-075);
   --color-accent-050: var(--accent-050);
   --color-accent-025: var(--accent-025);
 
