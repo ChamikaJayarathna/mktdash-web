@@ -183,6 +183,62 @@ describe("ComposerDock", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
+  it.each([
+    [
+      "Sending from priya@followaxis.com. Change mailbox",
+      "Accounts you can send from · 3",
+    ],
+    ["Insert merge tag", "Merge tags"],
+    ["Insert link", "Link address"],
+    ["Insert image", "Alt text"],
+    ["Schedule this send", "Pick a date and time"],
+    ["Template", "Insert a template"],
+    ["Change", "Signature"],
+  ])("opens the %s menu without crashing", async (trigger, content) => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(within(dialog).getByRole("button", { name: trigger }));
+
+    expect(await screen.findByText(content)).toBeVisible();
+  });
+
+  it("switches the mailbox a message will leave from", async () => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(
+      within(dialog).getByRole("button", { name: /Sending from/ }),
+    );
+    await user.click(
+      await screen.findByRole("menuitemradio", {
+        name: /hello@followaxis\.com/,
+      }),
+    );
+
+    expect(
+      await within(dialog).findByRole("button", {
+        name: /Sending from hello@followaxis\.com/,
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("shows a mailbox the sender is not granted as disabled rather than hiding it", async () => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(
+      within(dialog).getByRole("button", { name: /Sending from/ }),
+    );
+
+    expect(
+      await screen.findByRole("menuitemradio", { name: /ceo@followaxis\.com/ }),
+    ).toHaveAttribute("aria-disabled", "true");
+  });
+
   it("has no detectable accessibility violations", async () => {
     openComposer();
     const { container } = renderDock();

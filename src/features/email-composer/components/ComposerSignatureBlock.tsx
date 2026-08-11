@@ -6,6 +6,7 @@ import { Badge } from "@/shared/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
@@ -58,27 +59,29 @@ const ComposerSignatureBlock = ({
             Change
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" sideOffset={6} className="w-64">
-            <DropdownMenuLabel className="type-eyebrow text-eyebrow">
-              Signature
-            </DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => onSelect(null)}>
-              No signature
-            </DropdownMenuItem>
-            {signatures.map((signature) => (
-              <DropdownMenuItem
-                key={signature.id}
-                onClick={() => onSelect(signature.id)}
-              >
-                <span className="min-w-0 flex-1 truncate">
-                  {signature.label}
-                </span>
-                {signature.isLockedByAdmin ? (
-                  <Badge size="xs" variant="locked">
-                    Locked
-                  </Badge>
-                ) : null}
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="type-eyebrow text-eyebrow">
+                Signature
+              </DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => onSelect(null)}>
+                No signature
               </DropdownMenuItem>
-            ))}
+              {signatures.map((signature) => (
+                <DropdownMenuItem
+                  key={signature.id}
+                  onClick={() => onSelect(signature.id)}
+                >
+                  <span className="min-w-0 flex-1 truncate">
+                    {signature.label}
+                  </span>
+                  {signature.isLockedByAdmin ? (
+                    <Badge size="xs" variant="locked">
+                      Locked
+                    </Badge>
+                  ) : null}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

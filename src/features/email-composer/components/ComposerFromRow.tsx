@@ -23,11 +23,6 @@ export interface ComposerFromRowProps {
   readonly onSelect: (accountId: string) => void;
 }
 
-const capPercent = (account: SendingAccount): number =>
-  account.dailyCap === 0
-    ? 0
-    : Math.min(Math.round((account.sentToday / account.dailyCap) * 100), 100);
-
 const ComposerFromRow = ({
   accounts,
   selectedAccount,
@@ -118,15 +113,15 @@ const ComposerFromRow = ({
               sideOffset={6}
               className="w-(--anchor-width) min-w-72 rounded-3xl p-1.5 shadow-popover"
             >
-              <DropdownMenuLabel className="px-2.5 pt-1 pb-2 type-eyebrow text-eyebrow">
-                Accounts you can send from · {grantedAccounts.length}
-              </DropdownMenuLabel>
-
               <DropdownMenuRadioGroup
                 value={selectedAccount?.id ?? ""}
                 onValueChange={(value) => onSelect(String(value))}
                 className="flex flex-col gap-px"
               >
+                <DropdownMenuLabel className="px-2.5 pt-1 pb-2 type-eyebrow text-eyebrow">
+                  Accounts you can send from · {grantedAccounts.length}
+                </DropdownMenuLabel>
+
                 {accounts.map((account) => (
                   <DropdownMenuRadioItem
                     key={account.id}
@@ -141,8 +136,7 @@ const ComposerFromRow = ({
                         {account.address}
                       </span>
                       <span className="mt-px block truncate text-xs font-medium text-eyebrow">
-                        {account.kind} · {account.sentToday} of{" "}
-                        {account.dailyCap} sends today
+                        {account.kind}
                       </span>
                     </span>
                     {account.isGranted ? null : (
@@ -167,29 +161,6 @@ const ComposerFromRow = ({
           </DropdownMenu>
         ) : null}
       </div>
-
-      {selectedAccount ? (
-        <div className="mt-2 flex items-center gap-2.5">
-          <span aria-hidden className="w-9 flex-none" />
-          <div
-            role="progressbar"
-            aria-label={`Daily sending cap for ${selectedAccount.address}`}
-            aria-valuemin={0}
-            aria-valuemax={selectedAccount.dailyCap}
-            aria-valuenow={selectedAccount.sentToday}
-            className="h-1 min-w-0 flex-1 overflow-hidden rounded-sm bg-accent-100"
-          >
-            <div
-              className="h-full rounded-sm bg-accent-500"
-              style={{ width: `${capPercent(selectedAccount)}%` }}
-            />
-          </div>
-          <span className="flex-none font-mono text-xs font-medium text-accent-300">
-            {selectedAccount.sentToday} of {selectedAccount.dailyCap} sends
-            today
-          </span>
-        </div>
-      ) : null}
     </div>
   );
 };

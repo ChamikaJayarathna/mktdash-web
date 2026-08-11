@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -72,24 +73,26 @@ const ScheduleMenu = ({
         sideOffset={8}
         className="w-72"
       >
-        <DropdownMenuLabel className="type-eyebrow text-eyebrow">
-          Schedule send · {timeZone}
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="type-eyebrow text-eyebrow">
+            Schedule send · {timeZone}
+          </DropdownMenuLabel>
 
-        {options.map((option) => (
-          <DropdownMenuItem
-            key={option.id}
-            onClick={() => onSchedule(option.at)}
-            className="flex-col items-start gap-0.5 py-2"
-          >
-            <span className="text-sm font-bold text-heading">
-              {option.label}
-            </span>
-            <span className="font-mono text-xs font-medium text-eyebrow">
-              {option.detail}
-            </span>
-          </DropdownMenuItem>
-        ))}
+          {options.map((option) => (
+            <DropdownMenuItem
+              key={option.id}
+              onClick={() => onSchedule(option.at)}
+              className="flex-col items-start gap-0.5 py-2"
+            >
+              <span className="text-sm font-bold text-heading">
+                {option.label}
+              </span>
+              <span className="font-mono text-xs font-medium text-eyebrow">
+                {option.detail}
+              </span>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
 

@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
@@ -74,9 +75,11 @@ const InsertUrlMenu = ({
         sideOffset={8}
         className="w-72 p-2"
       >
-        <DropdownMenuLabel className="type-eyebrow text-eyebrow">
-          {label}
-        </DropdownMenuLabel>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="type-eyebrow text-eyebrow">
+            {label}
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-2 px-1 pb-1">
           <div className="flex flex-col gap-1">

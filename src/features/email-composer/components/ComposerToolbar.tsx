@@ -24,6 +24,7 @@ import { cn } from "@/shared/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
@@ -404,20 +405,23 @@ const ComposerToolbar = ({ editor }: ComposerToolbarProps) => {
           {"{ }"}
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" sideOffset={6} className="w-68">
-          <DropdownMenuLabel className="type-eyebrow text-eyebrow">
-            Merge tags
-          </DropdownMenuLabel>
-          {MERGE_TAGS.map((tag) => (
-            <DropdownMenuItem
-              key={tag.id}
-              onClick={() => insertMergeTag(editor, tag)}
-            >
-              <span className="font-mono text-sm font-semibold text-accent-700">
-                {tag.token}
-              </span>
-              <span className="ml-auto text-xs text-eyebrow">{tag.note}</span>
-            </DropdownMenuItem>
-          ))}
+          {/* Base UI requires a group label to sit inside its group. */}
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="type-eyebrow text-eyebrow">
+              Merge tags
+            </DropdownMenuLabel>
+            {MERGE_TAGS.map((tag) => (
+              <DropdownMenuItem
+                key={tag.id}
+                onClick={() => insertMergeTag(editor, tag)}
+              >
+                <span className="font-mono text-sm font-semibold text-accent-700">
+                  {tag.token}
+                </span>
+                <span className="ml-auto text-xs text-eyebrow">{tag.note}</span>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 

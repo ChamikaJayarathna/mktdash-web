@@ -16,6 +16,7 @@ import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
@@ -187,37 +188,39 @@ const ComposerActions = ({
             sideOffset={8}
             className="w-72"
           >
-            <DropdownMenuLabel className="type-eyebrow text-eyebrow">
-              Insert a template
-            </DropdownMenuLabel>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="type-eyebrow text-eyebrow">
+                Insert a template
+              </DropdownMenuLabel>
 
-            {isTemplatesLoading ? (
-              <p className="px-2.5 py-2 text-xs font-medium text-eyebrow">
-                Loading templates…
-              </p>
-            ) : null}
+              {isTemplatesLoading ? (
+                <p className="px-2.5 py-2 text-xs font-medium text-eyebrow">
+                  Loading templates…
+                </p>
+              ) : null}
 
-            {!isTemplatesLoading && templates.length === 0 ? (
-              <p className="px-2.5 py-2 text-xs leading-normal font-medium text-eyebrow">
-                No templates yet. Build one in Templates and it will appear
-                here.
-              </p>
-            ) : null}
+              {!isTemplatesLoading && templates.length === 0 ? (
+                <p className="px-2.5 py-2 text-xs leading-normal font-medium text-eyebrow">
+                  No templates yet. Build one in Templates and it will appear
+                  here.
+                </p>
+              ) : null}
 
-            {templates.map((template) => (
-              <DropdownMenuItem
-                key={template.id}
-                onClick={() => onApplyTemplate(template)}
-                className="flex-col items-start gap-0.5 py-2"
-              >
-                <span className="text-sm font-bold text-heading">
-                  {template.name}
-                </span>
-                <span className="text-xs font-medium text-eyebrow">
-                  {template.scope} · {template.state.replace("-", " ")}
-                </span>
-              </DropdownMenuItem>
-            ))}
+              {templates.map((template) => (
+                <DropdownMenuItem
+                  key={template.id}
+                  onClick={() => onApplyTemplate(template)}
+                  className="flex-col items-start gap-0.5 py-2"
+                >
+                  <span className="text-sm font-bold text-heading">
+                    {template.name}
+                  </span>
+                  <span className="text-xs font-medium text-eyebrow">
+                    {template.scope} · {template.state.replace("-", " ")}
+                  </span>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
 
