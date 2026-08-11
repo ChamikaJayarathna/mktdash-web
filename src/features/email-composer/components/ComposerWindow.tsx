@@ -35,7 +35,6 @@ import type {
 } from "../types/emailComposer.types";
 import ComposerActions from "./ComposerActions";
 import ComposerAttachments from "./ComposerAttachments";
-import ComposerChecks from "./ComposerChecks";
 import ComposerFromRow from "./ComposerFromRow";
 import ComposerHeader from "./ComposerHeader";
 import ComposerSignatureBlock from "./ComposerSignatureBlock";
@@ -388,8 +387,6 @@ const ComposerWindow = ({
         {session.isToolbarVisible && editor ? (
           <ComposerToolbar editor={editor} />
         ) : null}
-
-        <ComposerChecks report={report} />
 
         <ComposerActions
           sendState={session.sendState}

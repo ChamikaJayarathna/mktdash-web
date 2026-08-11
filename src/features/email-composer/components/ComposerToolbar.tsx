@@ -188,7 +188,7 @@ const ComposerToolbar = ({ editor }: ComposerToolbarProps) => {
       role="toolbar"
       aria-label="Formatting"
       aria-orientation="horizontal"
-      className="mx-panel mt-2.5 flex flex-none flex-wrap items-center gap-0.5 rounded-4xl bg-surface-7 px-2 py-1"
+      className="mx-panel my-2.5 flex flex-none flex-wrap items-center gap-0.5 rounded-4xl bg-surface-7 px-2 py-1"
     >
       <ToolbarIconButton
         icon={Undo2}
