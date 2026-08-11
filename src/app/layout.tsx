@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import QueryProvider from "@/app/providers/QueryProvider";
 import { cn } from "@/shared/lib/utils";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -38,7 +39,7 @@ const RootLayout = ({
       className={cn("h-full", plusJakartaSans.variable, ibmPlexMono.variable)}
     >
       <body className="min-h-full bg-background font-sans text-base text-foreground antialiased">
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
