@@ -71,10 +71,52 @@ test.describe("compose and send", () => {
 
     await composer.getByRole("button", { name: "Insert emoji" }).click();
     await page.getByPlaceholder("Search emoji").fill("thumbs up");
-    await page.locator("button.epr-emoji").first().click();
+    await page.getByRole("button", { name: "thumbs up", exact: true }).click();
 
     await expect(body).toContainText("Thanks 👍");
   });
+
+  for (const theme of ["light", "dark"] as const) {
+    const opposingOsScheme = theme === "light" ? "dark" : "light";
+
+    test(`paints the emoji picker from the app's ${theme} theme`, async ({
+      page,
+    }) => {
+      await page.emulateMedia({ colorScheme: opposingOsScheme });
+      await page.goto(INBOX_URL);
+      await page.evaluate(
+        (value) => localStorage.setItem("mktdash-theme", value),
+        theme,
+      );
+      await page.reload();
+
+      await page.getByRole("button", { name: "Compose" }).click();
+      const composer = page.getByRole("dialog");
+      await composer.getByRole("button", { name: /Sending from/ }).waitFor();
+      await composer.getByRole("button", { name: "Insert emoji" }).click();
+      await page.locator("button.epr-emoji").first().waitFor();
+
+      const { pickerBackground, surfaceToken, osDrivenThemeClasses } =
+        await page.locator(".EmojiPickerReact").evaluate((picker) => {
+          const probe = document.createElement("div");
+          probe.style.backgroundColor = "var(--surface-0)";
+          picker.append(probe);
+          const surface = getComputedStyle(probe).backgroundColor;
+          probe.remove();
+
+          return {
+            pickerBackground: getComputedStyle(picker).backgroundColor,
+            surfaceToken: surface,
+            osDrivenThemeClasses: Array.from(picker.classList).filter(
+              (name) => name === "epr-auto-theme" || name === "epr-dark-theme",
+            ),
+          };
+        });
+
+      expect(pickerBackground).toBe(surfaceToken);
+      expect(osDrivenThemeClasses).toEqual([]);
+    });
+  }
 
   test("applies a signature chosen from the action bar", async ({ page }) => {
     const composer = await openComposer(page);

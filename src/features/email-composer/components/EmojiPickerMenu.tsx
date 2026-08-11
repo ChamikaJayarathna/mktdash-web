@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import dynamic from "next/dynamic";
 import { EmojiStyle, Theme, type EmojiClickData } from "emoji-picker-react";
 import { Smile } from "lucide-react";
@@ -25,34 +25,28 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
   ),
 });
 
-const PICKER_TOKEN_BRIDGE = [
-  "[--epr-bg-color:var(--surface-0)]",
-  "[--epr-dark-bg-color:var(--surface-0)]",
-  "[--epr-text-color:var(--text-3)]",
-  "[--epr-dark-text-color:var(--text-3)]",
-  "[--epr-picker-border-color:var(--border-6)]",
-  "[--epr-dark-picker-border-color:var(--border-6)]",
-  "[--epr-picker-border-radius:var(--radius-3xl)]",
-  "[--epr-search-input-bg-color:var(--surface-3)]",
-  "[--epr-dark-search-input-bg-color:var(--surface-3)]",
-  "[--epr-search-input-bg-color-active:var(--surface-0)]",
-  "[--epr-dark-search-input-bg-color-active:var(--surface-0)]",
-  "[--epr-search-border-color:var(--accent-500)]",
-  "[--epr-hover-bg-color:var(--surface-2)]",
-  "[--epr-dark-hover-bg-color:var(--surface-2)]",
-  "[--epr-focus-bg-color:var(--accent-075)]",
-  "[--epr-dark-focus-bg-color:var(--accent-075)]",
-  "[--epr-highlight-color:var(--accent-500)]",
-  "[--epr-dark-highlight-color:var(--accent-500)]",
-  "[--epr-category-label-bg-color:var(--surface-0)]",
-  "[--epr-dark-category-label-bg-color:var(--surface-0)]",
-  "[--epr-category-label-text-color:var(--text-7)]",
-  "[--epr-category-icon-active-color:var(--accent-500)]",
-  "[--epr-dark-category-icon-active-color:var(--accent-500)]",
-  "[--epr-preview-text-color:var(--text-7)]",
-  "[--epr-preview-border-color:var(--border-2)]",
-  "[--epr-emoji-size:22px]",
-].join(" ");
+const PICKER_TOKEN_STYLE = {
+  "--epr-bg-color": "var(--surface-0)",
+  "--epr-text-color": "var(--text-3)",
+  "--epr-picker-border-color": "var(--border-6)",
+  "--epr-picker-border-radius": "var(--radius-3xl)",
+  "--epr-search-input-bg-color": "var(--surface-3)",
+  "--epr-search-input-bg-color-active": "var(--surface-0)",
+  "--epr-search-input-text-color": "var(--text-3)",
+  "--epr-search-input-placeholder-color": "var(--text-9)",
+  "--epr-search-border-color": "var(--accent-500)",
+  "--epr-search-input-border-color": "var(--border-5)",
+  "--epr-hover-bg-color": "var(--surface-2)",
+  "--epr-focus-bg-color": "var(--accent-075)",
+  "--epr-highlight-color": "var(--accent-500)",
+  "--epr-category-label-bg-color": "var(--surface-0)",
+  "--epr-category-label-text-color": "var(--text-7)",
+  "--epr-category-icon-active-color": "var(--accent-500)",
+  "--epr-category-icon-color": "var(--text-7)",
+  "--epr-preview-text-color": "var(--text-7)",
+  "--epr-preview-border-color": "var(--border-2)",
+  "--epr-emoji-size": "22px",
+} as CSSProperties;
 
 export interface EmojiPickerMenuProps {
   readonly onSelect: (emoji: string) => void;
@@ -88,19 +82,18 @@ const EmojiPickerMenu = ({ onSelect }: EmojiPickerMenuProps) => {
         sideOffset={8}
         className="w-auto overflow-hidden border-0 p-0"
       >
-        <div className={PICKER_TOKEN_BRIDGE}>
-          <EmojiPicker
-            onEmojiClick={handleEmojiClick}
-            emojiStyle={EmojiStyle.NATIVE}
-            theme={Theme.AUTO}
-            height={PICKER_HEIGHT}
-            width={PICKER_WIDTH}
-            searchPlaceholder="Search emoji"
-            previewConfig={{ showPreview: false }}
-            skinTonesDisabled
-            lazyLoadEmojis={false}
-          />
-        </div>
+        <EmojiPicker
+          onEmojiClick={handleEmojiClick}
+          emojiStyle={EmojiStyle.NATIVE}
+          theme={Theme.LIGHT}
+          style={PICKER_TOKEN_STYLE}
+          height={PICKER_HEIGHT}
+          width={PICKER_WIDTH}
+          searchPlaceholder="Search emoji"
+          previewConfig={{ showPreview: false }}
+          skinTonesDisabled
+          lazyLoadEmojis={false}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
