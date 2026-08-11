@@ -23,6 +23,25 @@ beforeAll(() => {
       }) as MediaQueryList;
   }
 
+  const globalWithObserver = globalThis as typeof globalThis & {
+    IntersectionObserver?: typeof IntersectionObserver;
+  };
+
+  if (!globalWithObserver.IntersectionObserver) {
+    class NoopIntersectionObserver implements IntersectionObserver {
+      readonly root = null;
+      readonly rootMargin = "";
+      readonly scrollMargin = "";
+      readonly thresholds: readonly number[] = [];
+      observe = () => {};
+      unobserve = () => {};
+      disconnect = () => {};
+      takeRecords = (): IntersectionObserverEntry[] => [];
+    }
+
+    globalWithObserver.IntersectionObserver = NoopIntersectionObserver;
+  }
+
   if (!Range.prototype.getBoundingClientRect) {
     Range.prototype.getBoundingClientRect = () => new DOMRect();
   }

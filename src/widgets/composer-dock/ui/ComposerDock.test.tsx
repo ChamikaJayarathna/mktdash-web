@@ -194,6 +194,7 @@ describe("ComposerDock", () => {
     ["Schedule this send", "Pick a date and time"],
     ["Template", "Insert a template"],
     ["Change", "Signature"],
+    ["Signature", "Priya — short"],
   ])("opens the %s menu without crashing", async (trigger, content) => {
     openComposer();
     const { user } = renderDock();
@@ -237,6 +238,47 @@ describe("ComposerDock", () => {
     expect(
       await screen.findByRole("menuitemradio", { name: /ceo@followaxis\.com/ }),
     ).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("applies a signature picked from the action bar to the message", async () => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(within(dialog).getByRole("button", { name: "Signature" }));
+    await user.click(
+      await screen.findByRole("menuitem", { name: /Priya — short/ }),
+    );
+
+    expect(
+      await within(dialog).findByText("Signature · Priya — short"),
+    ).toBeVisible();
+  });
+
+  it("can send a message with no signature at all", async () => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(within(dialog).getByRole("button", { name: "Signature" }));
+    await user.click(
+      await screen.findByRole("menuitem", { name: "No signature" }),
+    );
+
+    expect(await within(dialog).findByText("Signature · None")).toBeVisible();
+    expect(within(dialog).getByText(/goes out unsigned/i)).toBeInTheDocument();
+  });
+
+  it("opens the emoji picker from the action bar", async () => {
+    openComposer();
+    const { user } = renderDock();
+
+    const dialog = await findComposer();
+    await user.click(
+      within(dialog).getByRole("button", { name: "Insert emoji" }),
+    );
+
+    expect(await screen.findByPlaceholderText("Search emoji")).toBeVisible();
   });
 
   it("has no detectable accessibility violations", async () => {

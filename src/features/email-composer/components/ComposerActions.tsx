@@ -25,10 +25,13 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { formatScheduleStamp } from "../lib/scheduleOptions";
 import type {
   ComposerSendState,
+  EmailSignature,
   EmailTemplateSummary,
 } from "../types/emailComposer.types";
+import EmojiPickerMenu from "./EmojiPickerMenu";
 import InsertUrlMenu from "./InsertUrlMenu";
 import ScheduleMenu from "./ScheduleMenu";
+import SignatureMenu from "./SignatureMenu";
 
 export interface ComposerActionsProps {
   readonly sendState: ComposerSendState;
@@ -40,6 +43,9 @@ export interface ComposerActionsProps {
   readonly trackOpens: boolean;
   readonly templates: readonly EmailTemplateSummary[];
   readonly isTemplatesLoading: boolean;
+  readonly signatures: readonly EmailSignature[];
+  readonly isSignaturesLoading: boolean;
+  readonly activeSignatureId: string | null;
   readonly onSend: () => void;
   readonly onSchedule: (at: Date | null) => void;
   readonly onToggleToolbar: () => void;
@@ -48,6 +54,8 @@ export interface ComposerActionsProps {
   readonly onInsertLink: (href: string) => void;
   readonly onInsertImage: (src: string, alt: string) => void;
   readonly onApplyTemplate: (template: EmailTemplateSummary) => void;
+  readonly onSelectSignature: (signatureId: string | null) => void;
+  readonly onInsertEmoji: (emoji: string) => void;
   readonly onDiscard: () => void;
 }
 
@@ -61,6 +69,9 @@ const ComposerActions = ({
   trackOpens,
   templates,
   isTemplatesLoading,
+  signatures,
+  isSignaturesLoading,
+  activeSignatureId,
   onSend,
   onSchedule,
   onToggleToolbar,
@@ -69,6 +80,8 @@ const ComposerActions = ({
   onInsertLink,
   onInsertImage,
   onApplyTemplate,
+  onSelectSignature,
+  onInsertEmoji,
   onDiscard,
 }: ComposerActionsProps) => {
   const fileInputId = useId();
@@ -164,6 +177,8 @@ const ComposerActions = ({
           onSubmit={(href) => onInsertLink(href)}
         />
 
+        <EmojiPickerMenu onSelect={onInsertEmoji} />
+
         <InsertUrlMenu
           icon={ImageIcon}
           label="Insert image"
@@ -223,6 +238,14 @@ const ComposerActions = ({
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <SignatureMenu
+          variant="icon"
+          signatures={signatures}
+          isLoading={isSignaturesLoading}
+          activeSignatureId={activeSignatureId}
+          onSelect={onSelectSignature}
+        />
 
         <Button
           type="button"

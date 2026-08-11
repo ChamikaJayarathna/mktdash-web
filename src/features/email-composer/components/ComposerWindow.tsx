@@ -22,6 +22,7 @@ import { createId } from "../lib/createId";
 import { runDeliverabilityChecks } from "../lib/deliverability";
 import {
   applyLink,
+  insertEmoji,
   insertImageByUrl,
   replaceWithSanitisedHtml,
 } from "../lib/editorCommands";
@@ -373,6 +374,7 @@ const ComposerWindow = ({
           <ComposerSignatureBlock
             signatures={signatures}
             activeSignature={activeSignature}
+            isLoading={signaturesQuery.isPending}
             onSelect={(signatureId) => patchDraft(session.id, { signatureId })}
           />
         </div>
@@ -398,6 +400,9 @@ const ComposerWindow = ({
           trackOpens={draft.trackOpens}
           templates={templates}
           isTemplatesLoading={templatesQuery.isPending}
+          signatures={signatures}
+          isSignaturesLoading={signaturesQuery.isPending}
+          activeSignatureId={draft.signatureId}
           onSend={handleSend}
           onSchedule={handleSchedule}
           onToggleToolbar={() => toggleToolbar(session.id)}
@@ -410,6 +415,10 @@ const ComposerWindow = ({
             editor && insertImageByUrl(editor, src, alt)
           }
           onApplyTemplate={handleApplyTemplate}
+          onSelectSignature={(signatureId) =>
+            patchDraft(session.id, { signatureId })
+          }
+          onInsertEmoji={(emoji) => editor && insertEmoji(editor, emoji)}
           onDiscard={() => onDiscard(session)}
         />
       </section>

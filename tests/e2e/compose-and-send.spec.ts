@@ -62,6 +62,29 @@ test.describe("compose and send", () => {
     ).toBeVisible();
   });
 
+  test("inserts an emoji into the body at the cursor", async ({ page }) => {
+    const composer = await openComposer(page);
+
+    const body = composer.getByRole("textbox", { name: "Message body" });
+    await body.click();
+    await page.keyboard.type("Thanks ");
+
+    await composer.getByRole("button", { name: "Insert emoji" }).click();
+    await page.getByPlaceholder("Search emoji").fill("thumbs up");
+    await page.locator("button.epr-emoji").first().click();
+
+    await expect(body).toContainText("Thanks 👍");
+  });
+
+  test("applies a signature chosen from the action bar", async ({ page }) => {
+    const composer = await openComposer(page);
+
+    await composer.getByRole("button", { name: "Signature" }).click();
+    await page.getByRole("menuitem", { name: /Priya — short/ }).click();
+
+    await expect(composer.getByText("Signature · Priya — short")).toBeVisible();
+  });
+
   test("keeps a draft alive across navigation", async ({ page }) => {
     const composer = await openComposer(page);
 

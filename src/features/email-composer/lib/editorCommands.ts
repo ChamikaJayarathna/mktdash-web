@@ -58,6 +58,10 @@ export const insertImageByUrl = (
   editor.chain().focus().setImage({ src: trimmed, alt }).run();
 };
 
+export const insertEmoji = (editor: Editor, emoji: string): void => {
+  editor.chain().focus().insertContent(emoji).run();
+};
+
 export const clearFormatting = (editor: Editor): void => {
   editor.chain().focus().unsetAllMarks().clearNodes().run();
 };
