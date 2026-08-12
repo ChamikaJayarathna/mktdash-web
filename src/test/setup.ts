@@ -6,8 +6,14 @@ import { server } from "./handlers/server";
 
 expect.extend(toHaveNoViolations);
 
+const hasDom = typeof window !== "undefined";
+
 beforeAll(() => {
   server.listen({ onUnhandledRequest: "error" });
+
+  if (!hasDom) {
+    return;
+  }
 
   if (!window.matchMedia) {
     window.matchMedia = (query: string) =>
@@ -55,7 +61,10 @@ beforeAll(() => {
 });
 
 afterEach(() => {
-  cleanup();
+  if (hasDom) {
+    cleanup();
+  }
+
   server.resetHandlers();
 });
 

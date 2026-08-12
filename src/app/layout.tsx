@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import QueryProvider from "@/app/providers/QueryProvider";
+import { env } from "@/shared/config/env";
 import { cn } from "@/shared/lib/utils";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -19,6 +20,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
     default: "Marketing Dashboard",
     template: "%s · Marketing Dashboard",
