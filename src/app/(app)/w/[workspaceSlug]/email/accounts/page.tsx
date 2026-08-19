@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { ModulePlaceholderPage } from "@/views/module-placeholder";
+import { EmailAccountsPage } from "@/views/email-accounts";
 
 export const metadata: Metadata = {
-  title: "Accounts",
+  title: "Email connections",
 };
 
-const EmailAccountsRoute = () => {
-  return (
-    <ModulePlaceholderPage
-      module="Email"
-      screen="Accounts"
-      description="Connected mailboxes and WhatsApp numbers, their sync health, and which of them your membership is granted to send from."
-    />
-  );
+export interface EmailAccountsRouteProps {
+  readonly params: Promise<{ workspaceSlug: string }>;
+}
+
+const EmailAccountsRoute = async ({ params }: EmailAccountsRouteProps) => {
+  const { workspaceSlug } = await params;
+
+  return <EmailAccountsPage workspaceSlug={workspaceSlug} />;
 };
 
 export default EmailAccountsRoute;
