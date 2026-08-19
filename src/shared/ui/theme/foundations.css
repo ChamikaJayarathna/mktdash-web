@@ -15,6 +15,7 @@
   --spacing-auth-panel-min: 380px; /* brand panel floor before it stacks */
   --spacing-auth-panel-max: 620px;
   --spacing-auth-column: 404px; /* auth form measure */
+  --spacing-modal-wide: 880px; /* two-column settings modal */
 
   --spacing-rail: 60px;
   --spacing-context-panel: 236px;

@@ -47,6 +47,32 @@ export const syncingMailboxFixture: Mailbox = {
   smtpEndpoint: "smtp.gmail.com:465",
   storageUsedGb: 4.2,
   storageQuotaGb: 15,
+  authMethod: "oauth",
+  scopeId: "reply",
+  dailyCap: 120,
+  sentToday: 38,
+  sendingWindow: {
+    days: ["mon", "tue", "wed", "thu", "fri"],
+    startTime: "09:00",
+    endTime: "17:00",
+    timeZone: "Europe/London",
+  },
+  grants: [
+    {
+      membershipId: "mem_priya",
+      name: "Priya Raman",
+      email: "priya@followaxis.com",
+      role: "Admin",
+      canSend: true,
+    },
+    {
+      membershipId: "mem_arun",
+      name: "Arun Mehta",
+      email: "arun@followaxis.com",
+      role: "Agent",
+      canSend: false,
+    },
+  ],
   updatedAt: "2026-08-12T09:59:26.000Z",
 };
 

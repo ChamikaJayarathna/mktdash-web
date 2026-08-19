@@ -4,4 +4,6 @@ export const emailAccountsKeys = {
     [...emailAccountsKeys.all(workspaceSlug), "providers"] as const,
   mailboxes: (workspaceSlug: string) =>
     [...emailAccountsKeys.all(workspaceSlug), "mailboxes"] as const,
+  members: (workspaceSlug: string) =>
+    [...emailAccountsKeys.all(workspaceSlug), "members"] as const,
 } as const;

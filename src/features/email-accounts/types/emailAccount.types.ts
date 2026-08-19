@@ -69,6 +69,31 @@ export interface ConnectVerificationStep {
   readonly note: string;
 }
 
+export type Weekday = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
+
+export interface MailboxSendingWindow {
+  readonly days: readonly Weekday[];
+  readonly startTime: string;
+  readonly endTime: string;
+  readonly timeZone: string;
+}
+
+export interface WorkspaceMember {
+  readonly membershipId: string;
+  readonly name: string;
+  readonly email: string;
+  readonly role: string;
+  readonly organisationId: string;
+}
+
+export interface MailboxGrant {
+  readonly membershipId: string;
+  readonly name: string;
+  readonly email: string;
+  readonly role: string;
+  readonly canSend: boolean;
+}
+
 export interface Mailbox {
   readonly id: string;
   readonly address: string;
@@ -76,13 +101,40 @@ export interface Mailbox {
   readonly providerId: EmailProviderId;
   readonly providerLabel: string;
   readonly monogram: string;
+  readonly authMethod: ProviderAuthMethod;
   readonly isSyncing: boolean;
   readonly lastSyncedAt: string;
   readonly imapEndpoint: string;
   readonly smtpEndpoint: string;
   readonly storageUsedGb: number;
   readonly storageQuotaGb: number;
+  readonly scopeId: MailboxScopeId | null;
+  readonly dailyCap: number;
+  readonly sentToday: number;
+  readonly sendingWindow: MailboxSendingWindow;
+  readonly grants: readonly MailboxGrant[];
   readonly updatedAt: string;
+}
+
+export interface UpdateMailboxInput {
+  readonly mailboxId: string;
+  readonly displayName: string;
+  readonly dailyCap: number;
+  readonly sendingWindow: MailboxSendingWindow;
+  readonly scopeId: MailboxScopeId | null;
+  readonly grants: readonly MailboxGrant[];
+  readonly appPassword: string | null;
+  readonly expectedUpdatedAt: string;
+}
+
+export class MailboxConflictError extends Error {
+  readonly latest: Mailbox;
+
+  constructor(latest: Mailbox) {
+    super(`${latest.address} was changed by someone else`);
+    this.name = "MailboxConflictError";
+    this.latest = latest;
+  }
 }
 
 export interface ConnectMailboxInput {

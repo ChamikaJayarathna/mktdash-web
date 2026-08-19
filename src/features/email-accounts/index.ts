@@ -4,6 +4,12 @@ export { default as ConnectMailboxLauncher } from "./components/ConnectMailboxLa
 export type { ConnectMailboxLauncherProps } from "./components/ConnectMailboxLauncher";
 export { default as ConnectMailboxDialog } from "./components/ConnectMailboxDialog";
 export type { ConnectMailboxDialogProps } from "./components/ConnectMailboxDialog";
+export { default as EditMailboxDialog } from "./components/EditMailboxDialog";
+export type { EditMailboxDialogProps } from "./components/EditMailboxDialog";
+export { default as MailboxGrantList } from "./components/MailboxGrantList";
+export { default as MailboxMemberPicker } from "./components/MailboxMemberPicker";
+export type { MailboxMemberPickerProps } from "./components/MailboxMemberPicker";
+export { default as SendingWindowFields } from "./components/SendingWindowFields";
 export { default as MailboxList } from "./components/MailboxList";
 export type { MailboxListProps } from "./components/MailboxList";
 export { default as MailboxCard } from "./components/MailboxCard";
@@ -21,6 +27,7 @@ export type { ToggleMailboxSyncVariables } from "./hooks/useToggleMailboxSync";
 export { useDeleteMailbox } from "./hooks/useDeleteMailbox";
 export type { DeleteMailboxVariables } from "./hooks/useDeleteMailbox";
 export { useRelativeTime } from "./hooks/useRelativeTime";
+export { useUpdateMailbox } from "./hooks/useUpdateMailbox";
 export { useConnectMailboxWizard } from "./hooks/useConnectMailboxWizard";
 export type { ConnectWizardStep } from "./hooks/useConnectMailboxWizard";
 
@@ -38,6 +45,17 @@ export {
 } from "./lib/emailAccountFormat";
 export { formatSyncAgo } from "./lib/relativeTime";
 export { detectProvider, emailDomain } from "./lib/detectProvider";
+export { memberSearchValue, substringFilter } from "./lib/commandFilter";
+export {
+  BUSINESS_DAYS,
+  WEEKDAYS,
+  formatSendingWindow,
+  formatWeekdays,
+  isWindowOrdered,
+  sortWeekdays,
+  timeZoneOptions,
+  toMinutes,
+} from "./lib/sendingWindow";
 export {
   MAILBOX_SCOPE_LEVELS,
   RECOMMENDED_SCOPE_ID,
@@ -49,6 +67,11 @@ export {
   buildDeleteMailboxSchema,
   type DeleteMailboxValues,
 } from "./schemas/deleteMailbox.schema";
+export {
+  MAX_DAILY_CAP,
+  editMailboxSchema,
+  type EditMailboxValues,
+} from "./schemas/editMailbox.schema";
 
 export type {
   ConnectMailboxInput,
@@ -65,4 +88,10 @@ export type {
   MailboxScopeId,
   MailboxScopeLevel,
   ScopeTone,
+  MailboxGrant,
+  MailboxSendingWindow,
+  UpdateMailboxInput,
+  Weekday,
+  WorkspaceMember,
 } from "./types/emailAccount.types";
+export { MailboxConflictError } from "./types/emailAccount.types";

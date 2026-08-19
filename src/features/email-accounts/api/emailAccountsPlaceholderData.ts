@@ -1,4 +1,8 @@
-import type { EmailProvider, Mailbox } from "../types/emailAccount.types";
+import type {
+  EmailProvider,
+  Mailbox,
+  WorkspaceMember,
+} from "../types/emailAccount.types";
 
 // TODO: Remove this module once the email service is wired through
 export const PLACEHOLDER_PROVIDERS: readonly EmailProvider[] = [
@@ -164,6 +168,74 @@ export const PLACEHOLDER_PROVIDERS: readonly EmailProvider[] = [
   },
 ];
 
+// TODO: Remove this module once the email service is wired through
+export const PLACEHOLDER_MEMBERS: readonly WorkspaceMember[] = [
+  {
+    membershipId: "mem_priya",
+    name: "Priya Raman",
+    email: "priya@followaxis.com",
+    role: "Admin",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_arun",
+    name: "Arun Mehta",
+    email: "arun@followaxis.com",
+    role: "Agent",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_nadia",
+    name: "Nadia Farouk",
+    email: "nadia@followaxis.com",
+    role: "Campaign Manager",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_iris",
+    name: "Iris Kaur",
+    email: "iris@followaxis.com",
+    role: "Analyst",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_tom",
+    name: "Tom Whitfield",
+    email: "tom@followaxis.com",
+    role: "Designer",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_sofia",
+    name: "Sofia Marchetti",
+    email: "sofia@followaxis.com",
+    role: "Agent",
+    organisationId: "org_northstar",
+  },
+  {
+    membershipId: "mem_elena",
+    name: "Elena Duarte",
+    email: "elena@meridianco.com",
+    role: "Admin",
+    organisationId: "org_meridian",
+  },
+  {
+    membershipId: "mem_marcus",
+    name: "Marcus Bell",
+    email: "marcus@meridianco.com",
+    role: "Agent",
+    organisationId: "org_meridian",
+  },
+];
+
+export const DEFAULT_ORGANISATION_ID = "org_northstar";
+
+export const WORKSPACE_ORGANISATIONS: Readonly<Record<string, string>> = {
+  northwind: "org_northstar",
+  halcyon: "org_northstar",
+  meridian: "org_meridian",
+};
+
 const secondsAgo = (seconds: number): string =>
   new Date(Date.now() - seconds * 1000).toISOString();
 
@@ -182,6 +254,25 @@ export const PLACEHOLDER_MAILBOXES: readonly Mailbox[] = [
     smtpEndpoint: "smtp.gmail.com:465",
     storageUsedGb: 4.2,
     storageQuotaGb: 15,
+    authMethod: "oauth",
+    scopeId: "reply",
+    dailyCap: 120,
+    sentToday: 38,
+    sendingWindow: {
+      days: ["mon", "tue", "wed", "thu", "fri"],
+      startTime: "09:00",
+      endTime: "17:00",
+      timeZone: "Europe/London",
+    },
+    grants: [
+      {
+        membershipId: "mem_priya",
+        name: "Priya Raman",
+        email: "priya@followaxis.com",
+        role: "Admin",
+        canSend: true,
+      },
+    ],
     updatedAt: "2026-08-12T09:59:26.000Z",
   },
   {
@@ -197,6 +288,46 @@ export const PLACEHOLDER_MAILBOXES: readonly Mailbox[] = [
     smtpEndpoint: "smtp.office365.com:587",
     storageUsedGb: 22.6,
     storageQuotaGb: 50,
+    authMethod: "oauth",
+    scopeId: "full",
+    dailyCap: 80,
+    sentToday: 64,
+    sendingWindow: {
+      days: ["mon", "tue", "wed", "thu", "fri"],
+      startTime: "08:00",
+      endTime: "18:00",
+      timeZone: "Europe/London",
+    },
+    grants: [
+      {
+        membershipId: "mem_priya",
+        name: "Priya Raman",
+        email: "priya@followaxis.com",
+        role: "Admin",
+        canSend: true,
+      },
+      {
+        membershipId: "mem_arun",
+        name: "Arun Mehta",
+        email: "arun@followaxis.com",
+        role: "Agent",
+        canSend: true,
+      },
+      {
+        membershipId: "mem_nadia",
+        name: "Nadia Farouk",
+        email: "nadia@followaxis.com",
+        role: "Campaign Manager",
+        canSend: true,
+      },
+      {
+        membershipId: "mem_iris",
+        name: "Iris Kaur",
+        email: "iris@followaxis.com",
+        role: "Analyst",
+        canSend: false,
+      },
+    ],
     updatedAt: "2026-08-12T09:59:00.000Z",
   },
   {
@@ -212,6 +343,25 @@ export const PLACEHOLDER_MAILBOXES: readonly Mailbox[] = [
     smtpEndpoint: "mail.privateemail.com:465",
     storageUsedGb: 0.8,
     storageQuotaGb: 10,
+    authMethod: "app-password",
+    scopeId: null,
+    dailyCap: 400,
+    sentToday: 118,
+    sendingWindow: {
+      days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+      startTime: "00:00",
+      endTime: "23:59",
+      timeZone: "Europe/London",
+    },
+    grants: [
+      {
+        membershipId: "mem_priya",
+        name: "Priya Raman",
+        email: "priya@followaxis.com",
+        role: "Admin",
+        canSend: true,
+      },
+    ],
     updatedAt: "2026-08-12T09:56:00.000Z",
   },
   {
@@ -227,6 +377,32 @@ export const PLACEHOLDER_MAILBOXES: readonly Mailbox[] = [
     smtpEndpoint: "smtp-mail.outlook.com:587",
     storageUsedGb: 6.1,
     storageQuotaGb: 15,
+    authMethod: "oauth",
+    scopeId: "send",
+    dailyCap: 30,
+    sentToday: 22,
+    sendingWindow: {
+      days: ["mon", "tue", "wed", "thu", "fri"],
+      startTime: "09:30",
+      endTime: "16:30",
+      timeZone: "Europe/London",
+    },
+    grants: [
+      {
+        membershipId: "mem_arun",
+        name: "Arun Mehta",
+        email: "arun@followaxis.com",
+        role: "Agent",
+        canSend: true,
+      },
+      {
+        membershipId: "mem_iris",
+        name: "Iris Kaur",
+        email: "iris@followaxis.com",
+        role: "Analyst",
+        canSend: false,
+      },
+    ],
     updatedAt: "2026-08-12T08:00:00.000Z",
   },
 ];

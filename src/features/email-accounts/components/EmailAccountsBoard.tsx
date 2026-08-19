@@ -4,10 +4,15 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { formatDayStamp } from "@/shared/lib/formatDateTime";
 import { useDeleteMailbox } from "../hooks/useDeleteMailbox";
+import { useEmailProviders } from "../hooks/useEmailProviders";
+import { useWorkspaceMembers } from "../hooks/useWorkspaceMembers";
 import { useMailboxes } from "../hooks/useMailboxes";
 import { useToggleMailboxSync } from "../hooks/useToggleMailboxSync";
-import type { Mailbox } from "../types/emailAccount.types";
+import { useUpdateMailbox } from "../hooks/useUpdateMailbox";
+import { MailboxConflictError } from "../types/emailAccount.types";
+import type { Mailbox, UpdateMailboxInput } from "../types/emailAccount.types";
 import DeleteMailboxDialog from "./DeleteMailboxDialog";
+import EditMailboxDialog from "./EditMailboxDialog";
 import MailboxList from "./MailboxList";
 
 export interface EmailAccountsBoardProps {
@@ -18,10 +23,14 @@ const VIEWER_TIME_ZONE = "Europe/London";
 
 const EmailAccountsBoard = ({ workspaceSlug }: EmailAccountsBoardProps) => {
   const mailboxesQuery = useMailboxes(workspaceSlug);
+  const providersQuery = useEmailProviders(workspaceSlug);
+  const membersQuery = useWorkspaceMembers(workspaceSlug);
   const toggleSyncMutation = useToggleMailboxSync(workspaceSlug);
   const deleteMutation = useDeleteMailbox(workspaceSlug);
+  const updateMutation = useUpdateMailbox(workspaceSlug);
 
   const [mailboxToDelete, setMailboxToDelete] = useState<Mailbox | null>(null);
+  const [mailboxToEdit, setMailboxToEdit] = useState<Mailbox | null>(null);
 
   const mailboxes = mailboxesQuery.data ?? [];
   const deletingMailboxId = deleteMutation.isPending
@@ -49,9 +58,32 @@ const EmailAccountsBoard = ({ workspaceSlug }: EmailAccountsBoardProps) => {
     );
   };
 
-  const handleEdit = (mailbox: Mailbox) => {
-    toast(`Editing ${mailbox.address}`, {
-      description: "Server settings and sending grants open next.",
+  const handleSave = (input: UpdateMailboxInput) => {
+    const address = mailboxToEdit?.address ?? "This mailbox";
+
+    updateMutation.mutate(input, {
+      onSuccess: () => {
+        setMailboxToEdit(null);
+        toast.success(`${address} updated`, {
+          description:
+            "Caps, sending window and grants take effect on the next send.",
+        });
+      },
+      onError: (error) => {
+        if (error instanceof MailboxConflictError) {
+          setMailboxToEdit(error.latest);
+          toast.error(`${address} was changed by someone else`, {
+            description:
+              "Your edits were not saved. The form now shows their version — reapply your changes and save again.",
+          });
+          return;
+        }
+
+        toast.error(`${address} could not be updated`, {
+          description:
+            "Nothing changed — the mailbox kept its previous settings.",
+        });
+      },
     });
   };
 
@@ -90,8 +122,26 @@ const EmailAccountsBoard = ({ workspaceSlug }: EmailAccountsBoardProps) => {
           void mailboxesQuery.refetch();
         }}
         onToggleSync={handleToggleSync}
-        onEdit={handleEdit}
+        onEdit={setMailboxToEdit}
         onDelete={setMailboxToDelete}
+      />
+
+      <EditMailboxDialog
+        mailbox={mailboxToEdit}
+        provider={
+          providersQuery.data?.find(
+            (candidate) => candidate.id === mailboxToEdit?.providerId,
+          ) ?? null
+        }
+        members={membersQuery.data ?? []}
+        isLoadingMembers={membersQuery.isPending}
+        isSaving={updateMutation.isPending}
+        onSave={handleSave}
+        onOpenChange={(open) => {
+          if (!open && !updateMutation.isPending) {
+            setMailboxToEdit(null);
+          }
+        }}
       />
 
       <DeleteMailboxDialog

@@ -4,11 +4,17 @@ import type {
   DeleteMailboxOutcome,
   EmailProvider,
   Mailbox,
+  UpdateMailboxInput,
+  WorkspaceMember,
 } from "../types/emailAccount.types";
+import { MailboxConflictError } from "../types/emailAccount.types";
 import { buildVerificationSteps } from "../lib/scopeLevels";
 import {
+  DEFAULT_ORGANISATION_ID,
   PLACEHOLDER_MAILBOXES,
+  PLACEHOLDER_MEMBERS,
   PLACEHOLDER_PROVIDERS,
+  WORKSPACE_ORGANISATIONS,
 } from "./emailAccountsPlaceholderData";
 
 const NETWORK_DELAY_MS = 180;
@@ -39,6 +45,21 @@ export const fetchEmailProviders = (
   workspaceSlug: string,
 ): Promise<readonly EmailProvider[]> =>
   scoped(workspaceSlug, () => PLACEHOLDER_PROVIDERS);
+
+export const resolveOrganisationId = (workspaceSlug: string): string =>
+  WORKSPACE_ORGANISATIONS[workspaceSlug] ?? DEFAULT_ORGANISATION_ID;
+
+export const fetchWorkspaceMembers = (
+  workspaceSlug: string,
+): Promise<readonly WorkspaceMember[]> => {
+  const organisationId = resolveOrganisationId(workspaceSlug);
+
+  return scoped(workspaceSlug, () =>
+    PLACEHOLDER_MEMBERS.filter(
+      (member) => member.organisationId === organisationId,
+    ),
+  );
+};
 
 export const fetchMailboxes = (
   workspaceSlug: string,
@@ -101,4 +122,38 @@ export const connectMailbox = (
       consentUrl: null,
       verification: buildVerificationSteps(input.address),
     };
+  });
+
+export const updateMailbox = (
+  workspaceSlug: string,
+  input: UpdateMailboxInput,
+): Promise<Mailbox> =>
+  scoped(workspaceSlug, () => {
+    const current = mailboxStore.find(
+      (mailbox) => mailbox.id === input.mailboxId,
+    );
+
+    if (!current) {
+      throw new Error(`Unknown mailbox: ${input.mailboxId}`);
+    }
+
+    if (current.updatedAt !== input.expectedUpdatedAt) {
+      throw new MailboxConflictError(current);
+    }
+
+    const updated: Mailbox = {
+      ...current,
+      displayName: input.displayName,
+      dailyCap: input.dailyCap,
+      sendingWindow: input.sendingWindow,
+      scopeId: input.scopeId,
+      grants: input.grants,
+      updatedAt: new Date().toISOString(),
+    };
+
+    mailboxStore = mailboxStore.map((mailbox) =>
+      mailbox.id === updated.id ? updated : mailbox,
+    );
+
+    return updated;
   });

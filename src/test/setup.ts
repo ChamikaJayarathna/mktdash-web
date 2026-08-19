@@ -31,7 +31,18 @@ beforeAll(() => {
 
   const globalWithObserver = globalThis as typeof globalThis & {
     IntersectionObserver?: typeof IntersectionObserver;
+    ResizeObserver?: typeof ResizeObserver;
   };
+
+  if (!globalWithObserver.ResizeObserver) {
+    class NoopResizeObserver implements ResizeObserver {
+      observe = () => {};
+      unobserve = () => {};
+      disconnect = () => {};
+    }
+
+    globalWithObserver.ResizeObserver = NoopResizeObserver;
+  }
 
   if (!globalWithObserver.IntersectionObserver) {
     class NoopIntersectionObserver implements IntersectionObserver {
@@ -46,6 +57,10 @@ beforeAll(() => {
     }
 
     globalWithObserver.IntersectionObserver = NoopIntersectionObserver;
+  }
+
+  if (!Element.prototype.scrollIntoView) {
+    Element.prototype.scrollIntoView = () => {};
   }
 
   if (!Range.prototype.getBoundingClientRect) {
