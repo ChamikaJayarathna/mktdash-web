@@ -55,10 +55,12 @@ const MailboxList = ({
       </h2>
 
       {isLoading ? (
-        <div className="flex flex-col gap-stack">
-          {MAILBOX_SKELETONS.map((index) => (
-            <MailboxCardSkeleton key={index} />
-          ))}
+        <div className="@container">
+          <div className="grid grid-cols-1 gap-stack @4xl:grid-cols-2">
+            {MAILBOX_SKELETONS.map((index) => (
+              <MailboxCardSkeleton key={index} />
+            ))}
+          </div>
         </div>
       ) : null}
 
@@ -71,19 +73,21 @@ const MailboxList = ({
       ) : null}
 
       {!isLoading && !isError && mailboxes.length > 0 ? (
-        <ul className="flex flex-col gap-stack">
-          {mailboxes.map((mailbox) => (
-            <li key={mailbox.id} className="min-w-0">
-              <MailboxCard
-                mailbox={mailbox}
-                isDeleting={deletingMailboxId === mailbox.id}
-                onToggleSync={onToggleSync}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            </li>
-          ))}
-        </ul>
+        <div className="@container">
+          <ul className="grid grid-cols-1 items-start gap-stack @4xl:grid-cols-2">
+            {mailboxes.map((mailbox) => (
+              <li key={mailbox.id} className="min-w-0">
+                <MailboxCard
+                  mailbox={mailbox}
+                  isDeleting={deletingMailboxId === mailbox.id}
+                  onToggleSync={onToggleSync}
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </section>
   );
