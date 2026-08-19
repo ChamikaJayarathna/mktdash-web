@@ -5,6 +5,7 @@ import type {
   EmailProvider,
   Mailbox,
 } from "../types/emailAccount.types";
+import { buildVerificationSteps } from "../lib/scopeLevels";
 import {
   PLACEHOLDER_MAILBOXES,
   PLACEHOLDER_PROVIDERS,
@@ -98,5 +99,6 @@ export const connectMailbox = (
         provider?.authMethod === "oauth" ? "consent-required" : "verifying",
       providerId: input.providerId,
       consentUrl: null,
+      verification: buildVerificationSteps(input.address),
     };
   });

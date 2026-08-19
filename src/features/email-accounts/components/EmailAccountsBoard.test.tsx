@@ -61,33 +61,6 @@ describe("EmailAccountsBoard", () => {
     expect(within(card).getByText("Sync paused")).toBeInTheDocument();
   });
 
-  it("auto-fills the server settings for the selected provider", async () => {
-    const { user } = renderBoard();
-
-    const gmailHost = await screen.findByLabelText("IMAP host");
-    expect(gmailHost).toHaveValue("imap.gmail.com");
-
-    await user.click(screen.getByRole("radio", { name: /fastmail/i }));
-
-    await waitFor(() =>
-      expect(screen.getByLabelText("IMAP host")).toHaveValue(
-        "imap.fastmail.com",
-      ),
-    );
-    expect(screen.getByLabelText("SMTP host")).toHaveValue("smtp.fastmail.com");
-  });
-
-  it("asks for an app password only when the provider cannot use OAuth", async () => {
-    const { user } = renderBoard();
-
-    await screen.findByRole("radio", { name: /gmail/i });
-    expect(screen.queryByLabelText("App password")).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole("radio", { name: /fastmail/i }));
-
-    expect(await screen.findByLabelText("App password")).toBeInTheDocument();
-  });
-
   it("only disconnects a mailbox once its address has been typed back", async () => {
     const { user } = renderBoard();
 

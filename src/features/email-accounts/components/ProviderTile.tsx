@@ -13,19 +13,21 @@ const ProviderTile = ({
   isSelected,
   onSelect,
 }: ProviderTileProps) => {
+  const isOAuth = provider.authMethod === "oauth";
+
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center gap-2.5 rounded-3xl border-[1.5px] px-3 py-2.75 transition-all duration-(--dur-hover) ease-out",
+        "flex cursor-pointer items-center gap-2.5 rounded-3xl border-[1.5px] px-2.75 py-2.5 transition-all duration-(--dur-hover) ease-out",
         "has-focus-visible:border-ring has-focus-visible:ring-3 has-focus-visible:ring-ring/40",
         isSelected
-          ? "border-accent-500 bg-accent-025 shadow-accent"
+          ? "border-accent-500 bg-accent-025"
           : "border-border-card bg-card hover:border-accent-200",
       )}
     >
       <input
         type="radio"
-        name="email-provider"
+        name="connect-provider"
         value={provider.id}
         checked={isSelected}
         onChange={() => onSelect(provider)}
@@ -35,7 +37,7 @@ const ProviderTile = ({
       <span
         aria-hidden
         className={cn(
-          "grid size-8 flex-none place-items-center rounded-2xl text-base font-extrabold",
+          "grid size-7.5 flex-none place-items-center rounded-2xl text-sm font-extrabold",
           providerToneClasses[provider.tone],
         )}
       >
@@ -46,20 +48,21 @@ const ProviderTile = ({
         <span className="block truncate text-sm font-bold text-heading">
           {provider.name}
         </span>
-        <span className="block truncate text-xs font-medium text-meta">
+        <span className="block truncate text-2xs font-medium text-eyebrow">
           {provider.sub}
         </span>
       </span>
 
       <span
-        aria-hidden
         className={cn(
-          "size-3.75 flex-none rounded-pill border-[1.5px] transition-colors duration-(--dur-hover) ease-out",
-          isSelected
-            ? "border-accent-500 bg-accent-500 ring-3 ring-white ring-inset"
-            : "border-border-7 bg-card",
+          "flex-none rounded-sm px-1.75 py-0.5 text-3xs font-bold",
+          isOAuth
+            ? "bg-success-050 text-success-600"
+            : "bg-surface-6 text-text-5",
         )}
-      />
+      >
+        {isOAuth ? "OAuth" : "App password"}
+      </span>
     </label>
   );
 };

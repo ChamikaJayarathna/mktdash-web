@@ -10,7 +10,11 @@ export type EmailProviderId =
   | "fastmail"
   | "imap";
 
-export type ProviderAuthMethod = "oauth" | "app-password" | "bridge-password";
+export type ProviderAuthMethod =
+  | "oauth"
+  | "app-password"
+  | "bridge-password"
+  | "manual";
 
 export type ProviderTone =
   | "accent"
@@ -28,10 +32,41 @@ export interface EmailProvider {
   readonly authLabel: string;
   readonly monogram: string;
   readonly tone: ProviderTone;
+  readonly via: string;
+  readonly consentHost: string | null;
+  readonly domains: readonly string[];
   readonly imapHost: string;
   readonly imapPort: number;
   readonly smtpHost: string;
   readonly smtpPort: number;
+}
+
+export type DetectionConfidence = "high" | "low" | "manual";
+
+export interface ProviderDetection {
+  readonly provider: EmailProvider;
+  readonly how: string;
+  readonly confidence: DetectionConfidence;
+}
+
+export type MailboxScopeId = "send" | "reply" | "full";
+
+export type ScopeTone = "warn" | "ok" | "caution";
+
+export interface MailboxScopeLevel {
+  readonly id: MailboxScopeId;
+  readonly name: string;
+  readonly tier: string;
+  readonly tone: ScopeTone;
+  readonly gain: string;
+  readonly cost: string;
+  readonly googleScopes: string;
+  readonly microsoftScopes: string;
+}
+
+export interface ConnectVerificationStep {
+  readonly label: string;
+  readonly note: string;
 }
 
 export interface Mailbox {
@@ -55,12 +90,14 @@ export interface ConnectMailboxInput {
   readonly label: string;
   readonly address: string;
   readonly appPassword: string | null;
+  readonly scopeId: MailboxScopeId | null;
 }
 
 export interface ConnectMailboxOutcome {
   readonly status: "consent-required" | "verifying";
   readonly providerId: EmailProviderId;
   readonly consentUrl: string | null;
+  readonly verification: readonly ConnectVerificationStep[];
 }
 
 export interface DeleteMailboxOutcome {
