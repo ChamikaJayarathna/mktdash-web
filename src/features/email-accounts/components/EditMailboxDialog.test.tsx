@@ -33,8 +33,12 @@ describe("EditMailboxDialog", () => {
       "Priya Raman",
     );
     expect(within(dialog).getByLabelText("Daily send cap")).toHaveValue(120);
-    expect(within(dialog).getByLabelText("Opens")).toHaveValue("09:00");
-    expect(within(dialog).getByLabelText("Closes")).toHaveValue("17:00");
+    expect(
+      within(dialog).getByRole("combobox", { name: "Opens" }),
+    ).toHaveTextContent("09:00");
+    expect(
+      within(dialog).getByRole("combobox", { name: "Closes" }),
+    ).toHaveTextContent("17:00");
     expect(within(dialog).getByText("38 sent today")).toBeInTheDocument();
   });
 
@@ -82,9 +86,10 @@ describe("EditMailboxDialog", () => {
     const { user } = renderBoard();
     const dialog = await openEditor(user, "Priya Raman");
 
-    const closes = within(dialog).getByLabelText("Closes");
-    await user.clear(closes);
-    await user.type(closes, "07:00");
+    await user.click(within(dialog).getByRole("combobox", { name: "Closes" }));
+    await user.click(
+      await screen.findByRole("option", { name: "07:00, 7:00 AM" }),
+    );
     await user.click(
       within(dialog).getByRole("button", { name: "Save changes" }),
     );
@@ -93,6 +98,31 @@ describe("EditMailboxDialog", () => {
       await within(dialog).findByText("The window must end after it starts."),
     ).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
+  it("accepts a time typed into the picker that is off the half hour", async () => {
+    const { user } = renderBoard();
+    const dialog = await openEditor(user, "Priya Raman");
+    const opens = within(dialog).getByRole("combobox", { name: "Opens" });
+
+    await user.click(opens);
+    await user.keyboard("9:37");
+    await user.click(
+      await screen.findByRole("option", { name: "09:37, 9:37 AM" }),
+    );
+
+    await waitFor(() => expect(opens).toHaveTextContent("09:37"));
+  });
+
+  it("keeps an off-step stored time selectable in the list", async () => {
+    const { user } = renderBoard();
+    const dialog = await openEditor(user, "Transactional");
+
+    await user.click(within(dialog).getByRole("combobox", { name: "Closes" }));
+
+    expect(
+      await screen.findByRole("option", { name: "23:59, 11:59 PM" }),
+    ).toBeInTheDocument();
   });
 
   it("refuses a sending window with no days", async () => {

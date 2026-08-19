@@ -2,10 +2,10 @@
 
 import { useId } from "react";
 import { cn } from "@/shared/lib/utils";
-import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import { WEEKDAYS } from "../lib/sendingWindow";
 import type { Weekday } from "../types/emailAccount.types";
+import TimeCombobox from "./TimeCombobox";
 import TimeZoneCombobox from "./TimeZoneCombobox";
 
 export interface SendingWindowFieldsProps {
@@ -88,25 +88,23 @@ const SendingWindowFields = ({
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor={startId}>Opens</Label>
-          <Input
+          <TimeCombobox
             id={startId}
-            type="time"
+            label="Opens"
             value={startTime}
-            onChange={(event) => onStartTimeChange(event.target.value)}
-            className="font-mono"
+            onChange={onStartTimeChange}
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label htmlFor={endId}>Closes</Label>
-          <Input
+          <TimeCombobox
             id={endId}
-            type="time"
+            label="Closes"
             value={endTime}
-            onChange={(event) => onEndTimeChange(event.target.value)}
-            className="font-mono"
-            aria-invalid={endTimeError ? true : undefined}
-            aria-describedby={endTimeError ? endErrorId : undefined}
+            isInvalid={endTimeError !== null}
+            describedBy={endTimeError ? endErrorId : undefined}
+            onChange={onEndTimeChange}
           />
         </div>
 
