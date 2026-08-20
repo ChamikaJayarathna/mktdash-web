@@ -13,15 +13,15 @@ const VerifyEmailMissingAddress = () => {
       </p>
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
-        <Link href="/sign-up" className={cn(buttonVariants(), "rounded-2xl")}>
+        <Link
+          href="/sign-up"
+          className={cn(buttonVariants({ variant: "solid" }), "rounded-2xl")}
+        >
           Create your account
         </Link>
         <Link
           href="/login"
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "rounded-2xl text-text-7",
-          )}
+          className={cn(buttonVariants({ variant: "ghost" }), "rounded-2xl")}
         >
           Sign in instead
         </Link>
