@@ -92,6 +92,13 @@ const SignUpForm = () => {
       return;
     }
 
+    if (outcome.status === "verification-required") {
+      router.replace(
+        `/verify-email?email=${encodeURIComponent(outcome.email)}`,
+      );
+      return;
+    }
+
     router.replace(outcome.redirectTo);
   });
 

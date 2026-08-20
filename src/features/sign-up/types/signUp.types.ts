@@ -19,6 +19,7 @@ export type SignUpFailureCode =
 
 export type SignUpOutcome =
   | { readonly status: "signed-up"; readonly redirectTo: string }
+  | { readonly status: "verification-required"; readonly email: string }
   | { readonly status: "failed"; readonly code: SignUpFailureCode };
 
 export type PasswordStrengthTone = "neutral" | "danger" | "warning" | "success";
