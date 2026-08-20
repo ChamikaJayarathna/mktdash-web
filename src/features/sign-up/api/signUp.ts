@@ -8,5 +8,6 @@ export const signUp = async (
     return { status: "failed", code: "password-breached" };
   }
 
-  return { status: "failed", code: "not-configured" };
+  // TODO: Replace with the identity service — it issues the verification code
+  return { status: "verification-required", email: details.email.trim() };
 };
